@@ -1,10 +1,12 @@
 package main
 
 import (
+	"github.com/google/uuid"
 	"github.com/tobischo/gokeepasslib/v3"
 )
 
 type Entry struct {
+	ID   string   `json:"id"`
 	Name string   `json:"name"`
 	Path []string `json:"path"`
 }
@@ -25,7 +27,11 @@ func ListEntriesFromGroup(group gokeepasslib.Group, path []string) []Entry {
 	entries := make([]Entry, len(group.Entries))
 
 	for i, entry := range group.Entries {
+		rawUUID := [16]byte(entry.UUID)
+		id, _ := uuid.FromBytes(rawUUID[:])
+
 		entries[i] = Entry{
+			ID:   id.String(),
 			Name: entry.GetTitle(),
 			Path: path,
 		}
