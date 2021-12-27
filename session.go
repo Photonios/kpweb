@@ -27,12 +27,12 @@ func CreateSession(auth Authentication) (*Session, error) {
 
 	err := gokeepasslib.NewDecoder(databaseFile).Decode(database)
 	if err != nil {
-		return nil, fmt.Errorf("corrupt")
+		return nil, err
 	}
 
 	err = database.UnlockProtectedEntries()
 	if err != nil {
-		return nil, fmt.Errorf("bad password")
+		return nil, err
 	}
 
 	session := Session{

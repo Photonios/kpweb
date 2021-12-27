@@ -12,14 +12,14 @@ func createSessionHandler(w http.ResponseWriter, r *http.Request) {
 	err := json.NewDecoder(r.Body).Decode(&auth)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		log.Fatalf("session creation failed: %s", err)
+		log.Printf("session creation failed: %s", err)
 		return
 	}
 
 	session, err := CreateSession(auth)
 	if err != nil {
 		w.WriteHeader(http.StatusForbidden)
-		log.Fatalf("session creation failed: %s", err)
+		log.Printf("session creation failed: %s", err)
 		return
 	}
 
@@ -36,14 +36,14 @@ func listEntriesHandler(w http.ResponseWriter, r *http.Request) {
 	sessionCookie, err := r.Cookie("sessionid")
 	if err != nil {
 		w.WriteHeader(http.StatusUnauthorized)
-		log.Fatal("unauthorized attempt at listing entries, no session cookie")
+		log.Printf("unauthorized attempt at listing entries, no session cookie")
 		return
 	}
 
 	session, err := GetSession(sessionCookie.Value)
 	if err != nil {
 		w.WriteHeader(http.StatusForbidden)
-		log.Fatalf("unauthorized attempt at listing entries, %s", err)
+		log.Printf("unauthorized attempt at listing entries, %s", err)
 		return
 	}
 
