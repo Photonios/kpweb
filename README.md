@@ -2,6 +2,22 @@
 
 kpweb is a super simple web client for a KeePassX database. It's distributed as a single, self-contained binary that serves a web app over HTTP. The web app is written in TypeScript/React and is embedded in the binary that contains the HTTP server.
 
+## Configuration
+
+Configuration happens through environment variables:
+
+- `KPWEB_DATABASE`
+
+  Path to the KeePassX database file (`*.kdbx`) to serve.
+
+- `KPWEB_HOST`
+
+  Optionally, the port to bind to. Default: 80
+
+- `KPWEB_HOST`
+
+  Optionally, the host to bind to. Default: 0.0.0.0
+
 ## Building
 
 ### Prerequisites
