@@ -1,7 +1,7 @@
 import React from "react";
 import { ErrorBoundary } from "react-error-boundary";
 
-import EntryListRenderer from "../entryListRenderer";
+import EntryListRenderer from "./entryListRenderer";
 
 const EntriesScreen = () => (
   <ErrorBoundary fallback={<div>Oh shit!</div>}>

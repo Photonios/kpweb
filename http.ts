@@ -1,3 +1,5 @@
+import { AppError, AppErrorName } from "./error";
+
 export const createSession = async ({
   password,
 }: {
@@ -17,9 +19,18 @@ export const createSession = async ({
 
   switch (response.status) {
     case 403:
-      throw new Error("Incorrect password");
+      throw new AppError("Incorrect password or corrupt database", {
+        name: AppErrorName.ACCESS_DENIED,
+      });
+
     default:
-      throw new Error("Unknown error");
+      throw new AppError("Unknown error", {
+        name: AppErrorName.UNKNOWN,
+        extra: {
+          status: response.status,
+          body: await response.json(),
+        },
+      });
   }
 };
 
@@ -35,9 +46,17 @@ export const listEntries = async () => {
   switch (response.status) {
     case 401:
     case 403:
-      throw new Error("Access denied");
+      throw new AppError("No active session", {
+        name: AppErrorName.ACCESS_DENIED,
+      });
 
     default:
-      throw new Error("Unknown error");
+      throw new AppError("Unknown error", {
+        name: AppErrorName.UNKNOWN,
+        extra: {
+          status: response.status,
+          body: await response.json(),
+        },
+      });
   }
 };

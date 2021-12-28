@@ -1,22 +1,24 @@
 import React from "react";
 import { useSetRecoilState } from "recoil";
 
-import { createSession } from "../http";
-import { hasSessionState } from "../state";
-import PasswordForm from "../passwordForm";
+import { createSession } from "./http";
+import { hasSessionState } from "./state";
+import PasswordForm from "./passwordForm";
+import useLoginErrorMessage from "./useLoginErrorMessage";
 
 const LoginScreen = () => {
   const setHasSession = useSetRecoilState(hasSessionState);
-  const [errorMessage, setErrorMessage] = React.useState(null);
+  const [error, setError] = React.useState(null);
+  const errorMessage = useLoginErrorMessage(error);
 
   const onSubmit = async ({ password }) => {
-    setErrorMessage(null);
+    setError(null);
 
     try {
       await createSession({ password });
       setHasSession(true);
     } catch (err) {
-      setErrorMessage(err.toString());
+      setError(err);
       setHasSession(false);
     }
   };
