@@ -2,9 +2,10 @@ import React from "react";
 
 interface Props {
   onSubmit: ({ password: string }) => void;
+  errorMessage?: string;
 }
 
-const PasswordForm = ({ onSubmit }: Props) => {
+const PasswordForm = ({ onSubmit, errorMessage }: Props) => {
   const [password, setPassword] = React.useState("");
 
   const onFormSubmitted = (e) => {
@@ -21,6 +22,7 @@ const PasswordForm = ({ onSubmit }: Props) => {
         onChange={(e) => setPassword(e.target.value)}
       />
       <button>Enter</button>
+      {errorMessage && <span>{errorMessage}</span>}
     </form>
   );
 };
