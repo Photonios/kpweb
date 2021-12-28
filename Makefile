@@ -19,6 +19,7 @@ devserver:
 
 fmt:
 	go fmt
+	yarn eslint . --fix
 	yarn prettier -w .
 
 _create_dist_dir:
