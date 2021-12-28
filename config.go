@@ -14,17 +14,31 @@ func GetHttpHost() string {
 }
 
 func GetHttpPort() int {
-	portAsString := os.Getenv("KPWEB_PORT")
-	if portAsString == "" {
+	rawValue := os.Getenv("KPWEB_PORT")
+	if rawValue == "" {
 		return 80
 	}
 
-	port, err := strconv.Atoi(portAsString)
+	port, err := strconv.Atoi(rawValue)
 	if err != nil {
 		return 80
 	}
 
 	return port
+}
+
+func GetIsSecure() bool {
+	rawValue := os.Getenv("KPWEB_SECURE")
+	if rawValue == "" {
+		return false
+	}
+
+	isSecure, err := strconv.ParseBool(rawValue)
+	if err != nil {
+		return false
+	}
+
+	return isSecure
 }
 
 func GetSessionIDCookieName() string {

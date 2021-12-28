@@ -18,6 +18,10 @@ Configuration happens through environment variables:
 
   Optionally, the host to bind to. Default: `0.0.0.0`.
 
+- `KPWEB_SECURE`
+
+  Optionally, whether kpweb is served over HTTPS and cookies should be set as "secure".
+
 - `KPWEB_SESSION_ID_COOKIE_NAME`
 
   Optionally, the name of the cookie that stores the session ID. Default: `kpweb_session_id`.
