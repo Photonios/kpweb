@@ -12,19 +12,19 @@ Configuration happens through environment variables:
 
 - `KPWEB_HOST`
 
-  Optionally, the port to bind to. Default: 80
+  Optionally, the port to bind to. Default: `80`.
 
 - `KPWEB_HOST`
 
-  Optionally, the host to bind to. Default: 0.0.0.0
+  Optionally, the host to bind to. Default: `0.0.0.0`.
 
 - `KPWEB_SESSION_ID_COOKIE_NAME`
 
-  Optionally, the name of the cookie that stores the session ID. Default: kpweb_session_id
+  Optionally, the name of the cookie that stores the session ID. Default: `kpweb_session_id`.
 
 - `KPWEB_SESSION_ACTIVE_COOKIE_NAME`
 
-  Optionally, the name of the cookie that indicates whether there's an active session. Default: kpweb_session_active
+  Optionally, the name of the cookie that indicates whether there's an active session. Default: `kpweb_session_active`.
 
 ## Building
 
