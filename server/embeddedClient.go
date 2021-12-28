@@ -1,4 +1,4 @@
-//go:build embeddedapp
+//go:build embeddedClient
 
 package main
 
@@ -11,7 +11,7 @@ import (
 //go:embed build
 var embeddedAppFS embed.FS
 
-func getAppFileSystem() http.FileSystem {
+func getClientFileSystem() http.FileSystem {
 	strippedFS, err := fs.Sub(embeddedAppFS, "build")
 	if err != nil {
 		panic(err)

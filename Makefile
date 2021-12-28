@@ -34,7 +34,7 @@ _create_build_dir:
 	mkdir -p $(BUILD_DIR)
 
 _build_server: _create_dist_dir
-	cd server/; go build -tags=embeddedapp -o $(DIST_DIR)/kpweb
+	cd server/; go build -tags=embeddedClient -o $(DIST_DIR)/kpweb
 
 _copy_index_html: _create_build_dir
 	cd client/; cp index.html $(BUILD_DIR)

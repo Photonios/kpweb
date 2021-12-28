@@ -6,6 +6,6 @@ import (
 	"net/http"
 )
 
-func getAppFileSystem() http.FileSystem {
+func getClientFileSystem() http.FileSystem {
 	return http.Dir("dist")
 }

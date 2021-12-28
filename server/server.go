@@ -17,7 +17,7 @@ func main() {
 		return
 	}
 
-	http.Handle("/", http.FileServer(getAppFileSystem()))
+	http.Handle("/", http.FileServer(getClientFileSystem()))
 	http.HandleFunc("/api/session", sessionHandler)
 	http.HandleFunc("/api/entries", entriesHandler)
 
