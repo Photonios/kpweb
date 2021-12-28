@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/google/uuid"
 	"github.com/tobischo/gokeepasslib/v3"
-	"os"
 	"time"
 )
 
@@ -19,18 +18,9 @@ type Session struct {
 }
 
 var sessions map[string]Session
-var databaseFile *os.File
 
 func CreateSession(auth Authentication) (*Session, error) {
-	database := gokeepasslib.NewDatabase()
-	database.Credentials = gokeepasslib.NewPasswordCredentials(auth.Password)
-
-	err := gokeepasslib.NewDecoder(databaseFile).Decode(database)
-	if err != nil {
-		return nil, err
-	}
-
-	err = database.UnlockProtectedEntries()
+	database, err := OpenDatabase(auth.Password)
 	if err != nil {
 		return nil, err
 	}

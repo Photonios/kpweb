@@ -10,14 +10,7 @@ import (
 func main() {
 	sessions = make(map[string]Session)
 
-	if GetDatabaseFilePath() == "" {
-		log.Fatalf("database file path not set, set the KPWEB_DATABASE environment variable")
-		os.Exit(1)
-		return
-	}
-
-	var err error
-	databaseFile, err = os.Open(GetDatabaseFilePath())
+	_, err := OpenDatabaseFile()
 	if err != nil {
 		log.Fatal(err)
 		os.Exit(1)
