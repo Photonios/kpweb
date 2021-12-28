@@ -50,6 +50,16 @@ func sessionHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		CloseSession(sessionCookie.Value)
+
+		http.SetCookie(w, &http.Cookie{
+			Name:   GetSessionIDCookieName(),
+			MaxAge: -1,
+		})
+
+		http.SetCookie(w, &http.Cookie{
+			Name:   GetSessionActiveCookieName(),
+			MaxAge: -1,
+		})
 		return
 
 	default:
