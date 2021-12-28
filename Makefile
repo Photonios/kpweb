@@ -1,39 +1,46 @@
-.PHONY: all app server devapp devserver fmt clean
+.PHONY: all clean client server devclient devserver fmt
 
-DIST_DIR := dist
+DIST_DIR := $(PWD)/dist
+BUILD_DIR := $(PWD)/server/build
 
-all: app server
+all: client server
 
-clean: _clean_app _clean_server
+clean: _clean_client _clean_server
 
-app: _copy_index_html
-	yarn esbuild index.tsx --bundle --outfile=$(DIST_DIR)/app.js
+setup:
+	cd client/; yarn install
+	cd server/; go mod download
 
-server: app _build_server _clean_app
+client: _copy_index_html
+	cd client/; yarn esbuild kpweb/index.tsx --bundle --outfile=$(BUILD_DIR)/app.js
 
-devapp: _copy_index_html
-	yarn esbuild index.tsx --bundle --outfile=$(DIST_DIR)/app.js --watch
+server: client _build_server _clean_client
+
+devclient: _clean_client _copy_index_html
+	cd client/; yarn esbuild kpweb/index.tsx --bundle --outfile=$(BUILD_DIR)/app.js --watch
 
 devserver:
-	go run .
+	cd server/; go run .
 
 fmt:
-	go fmt
-	yarn eslint . --fix
-	yarn prettier -w .
+	cd server/; go fmt
+	cd client/; yarn eslint . --fix
+	cd client/; yarn prettier -w .
 
 _create_dist_dir:
 	mkdir -p $(DIST_DIR)
 
-_copy_index_html: _create_dist_dir
-	cp index.html $(DIST_DIR)
+_create_build_dir:
+	mkdir -p $(BUILD_DIR)
 
-_clean_app:
-	rm -f $(DIST_DIR)/app.js
-	rm -f $(DIST_DIR)/index.html
+_build_server: _create_dist_dir
+	cd server/; go build -tags=embeddedapp -o $(DIST_DIR)/kpweb
+
+_copy_index_html: _create_build_dir
+	cd client/; cp index.html $(BUILD_DIR)
+
+_clean_client:
+	rm -rf $(BUILD_DIR)
 
 _clean_server:
 	rm -f $(DIST_DIR)/kpweb
-
-_build_server:
-	go build -tags=embeddedapp -o dist/kpweb

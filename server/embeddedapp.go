@@ -8,11 +8,11 @@ import (
 	"net/http"
 )
 
-//go:embed dist
+//go:embed build
 var embeddedAppFS embed.FS
 
 func getAppFileSystem() http.FileSystem {
-	strippedFS, err := fs.Sub(embeddedAppFS, "dist")
+	strippedFS, err := fs.Sub(embeddedAppFS, "build")
 	if err != nil {
 		panic(err)
 	}
