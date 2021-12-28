@@ -3,6 +3,7 @@ package main
 import (
 	"os"
 	"strconv"
+	"time"
 )
 
 func GetDatabaseFilePath() string {
@@ -39,6 +40,20 @@ func GetIsSecure() bool {
 	}
 
 	return isSecure
+}
+
+func GetSessionLifeTimeSeconds() time.Duration {
+	rawValue := os.Getenv("KPWEB_SESSION_LIFETIME_SECONDS")
+	if rawValue == "" {
+		return 15 * time.Minute
+	}
+
+	lifeTimeSeconds, err := strconv.Atoi(rawValue)
+	if err != nil {
+		return 15 * time.Minute
+	}
+
+	return time.Duration(lifeTimeSeconds) * time.Second
 }
 
 func GetSessionIDCookieName() string {

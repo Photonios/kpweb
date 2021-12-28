@@ -28,7 +28,7 @@ func CreateSession(auth Authentication) (*Session, error) {
 	session := Session{
 		ID:        uuid.New().String(),
 		Database:  database,
-		ExpiresAt: time.Now().Add(15 * time.Minute),
+		ExpiresAt: time.Now().Add(GetSessionLifeTimeSeconds()),
 	}
 
 	sessions[session.ID] = session

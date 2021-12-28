@@ -22,6 +22,10 @@ Configuration happens through environment variables:
 
   Optionally, whether kpweb is served over HTTPS and cookies should be set as "secure".
 
+- `KPWEB_SESSION_LIFETIME_SECONDS`
+
+  Optionally, the amount of seconds that a session should stay active. Default: `900`.
+
 - `KPWEB_SESSION_ID_COOKIE_NAME`
 
   Optionally, the name of the cookie that stores the session ID. Default: `kpweb_session_id`.
