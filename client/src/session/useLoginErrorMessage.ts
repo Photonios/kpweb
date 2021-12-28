@@ -1,4 +1,4 @@
-import { AppError, AppErrorName } from "./error";
+import { AppError, AppErrorName } from "../error";
 
 const useLoginErrorMessage = (err: Error | null): string | null => {
   if (!err) {

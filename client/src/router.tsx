@@ -1,12 +1,10 @@
 import React from "react";
-import { useRecoilValue } from "recoil";
 
-import { hasSessionState } from "./state";
-import LoginScreen from "./loginScreen";
-import EntriesScreen from "./entriesScreen";
+import { LoginScreen, useHasSession } from "./session";
+import { EntriesScreen } from "./entries";
 
 const Router = () => {
-  const hasSession = useRecoilValue(hasSessionState);
+  const hasSession = useHasSession();
 
   return hasSession ? <EntriesScreen /> : <LoginScreen />;
 };

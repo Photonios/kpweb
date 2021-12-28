@@ -1,7 +1,7 @@
 import React from "react";
 import { useSetRecoilState } from "recoil";
 
-import { createSession } from "./http";
+import { createSession } from "../api";
 import { hasSessionState } from "./state";
 import PasswordForm from "./passwordForm";
 import useLoginErrorMessage from "./useLoginErrorMessage";
