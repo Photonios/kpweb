@@ -1,8 +1,8 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-import { App } from "./src";
+import { App } from './src';
 
-window.addEventListener("DOMContentLoaded", () => {
-  ReactDOM.render(<App />, document.getElementById("app"));
+window.addEventListener('DOMContentLoaded', () => {
+  ReactDOM.render(<App />, document.getElementById('app'));
 });

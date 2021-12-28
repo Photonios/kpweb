@@ -1,8 +1,8 @@
-import { selector } from "recoil";
+import { selector } from 'recoil';
 
-import { listEntries } from "../api";
+import { listEntries } from '../api';
 
 export const entriesState = selector({
-  key: "entries",
+  key: 'entries',
   get: listEntries,
 });

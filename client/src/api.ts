@@ -1,14 +1,14 @@
-import { AppError, AppErrorName } from "./error";
+import { AppError, AppErrorName } from './error';
 
 export const createSession = async ({
   password,
 }: {
   password: string;
 }): boolean => {
-  const response = await fetch("/api/session", {
-    method: "POST",
+  const response = await fetch('/api/session', {
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({ password }),
   });
@@ -19,12 +19,12 @@ export const createSession = async ({
 
   switch (response.status) {
     case 403:
-      throw new AppError("Incorrect password or corrupt database", {
+      throw new AppError('Incorrect password or corrupt database', {
         name: AppErrorName.ACCESS_DENIED,
       });
 
     default:
-      throw new AppError("Unknown error", {
+      throw new AppError('Unknown error', {
         name: AppErrorName.UNKNOWN,
         extra: {
           status: response.status,
@@ -35,8 +35,8 @@ export const createSession = async ({
 };
 
 export const listEntries = async () => {
-  const response = await fetch("/api/entries", {
-    method: "GET",
+  const response = await fetch('/api/entries', {
+    method: 'GET',
   });
 
   if (response.ok) {
@@ -46,12 +46,12 @@ export const listEntries = async () => {
   switch (response.status) {
     case 401:
     case 403:
-      throw new AppError("No active session", {
+      throw new AppError('No active session', {
         name: AppErrorName.ACCESS_DENIED,
       });
 
     default:
-      throw new AppError("Unknown error", {
+      throw new AppError('Unknown error', {
         name: AppErrorName.UNKNOWN,
         extra: {
           status: response.status,

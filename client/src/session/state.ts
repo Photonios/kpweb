@@ -1,7 +1,7 @@
-import { atom } from "recoil";
+import { atom } from 'recoil';
 
 export const hasSessionState = atom({
-  key: "hasSession",
+  key: 'hasSession',
   // TODO: do not hard-code cookie name
-  default: document.cookie.includes("kpweb_session_active=1"),
+  default: document.cookie.includes('kpweb_session_active=1'),
 });

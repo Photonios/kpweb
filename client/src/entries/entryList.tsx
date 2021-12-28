@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 
-import Entry from "./entry";
-import { EntryDTO } from "./types";
+import Entry from './entry';
+import { EntryDTO } from './types';
 
 interface Props {
   entries: EntryDTO[];

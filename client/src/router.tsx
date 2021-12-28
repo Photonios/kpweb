@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 
-import { LoginScreen, useHasSession } from "./session";
-import { EntriesScreen } from "./entries";
+import { LoginScreen, useHasSession } from './session';
+import { EntriesScreen } from './entries';
 
 const Router = () => {
   const hasSession = useHasSession();

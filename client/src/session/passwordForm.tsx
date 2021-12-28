@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 interface Props {
   onSubmit: ({ password: string }) => void;
@@ -6,7 +6,7 @@ interface Props {
 }
 
 const PasswordForm = ({ onSubmit, errorMessage }: Props) => {
-  const [password, setPassword] = React.useState("");
+  const [password, setPassword] = React.useState('');
 
   const onFormSubmitted = (e) => {
     e.preventDefault();

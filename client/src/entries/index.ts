@@ -1,1 +1,1 @@
-export { default as EntriesScreen } from "./entriesScreen";
+export { default as EntriesScreen } from './entriesScreen';

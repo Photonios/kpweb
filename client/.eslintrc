@@ -8,6 +8,7 @@
     "@typescript-eslint/no-explicit-any": "error",
     "prefer-arrow-callback": "error",
     "arrow-body-style": ["error", "as-needed"],
-    "prefer-arrow/prefer-arrow-functions": ["error"]
+    "prefer-arrow/prefer-arrow-functions": ["error"],
+    "quotes": ["error", "single"]
   }
 }
