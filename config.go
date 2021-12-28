@@ -26,3 +26,12 @@ func GetHttpPort() int {
 
 	return port
 }
+
+func GetSessionIDCookieName() string {
+	name := os.Getenv("KPWEB_SESSION_ID_COOKIE_NAME")
+	if name == "" {
+		return "kpwweb_session_id"
+	}
+
+	return name
+}

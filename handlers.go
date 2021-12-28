@@ -26,7 +26,7 @@ func sessionHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		http.SetCookie(w, &http.Cookie{
-			Name:    "sessionid",
+			Name:    GetSessionIDCookieName(),
 			Value:   session.ID,
 			Expires: session.ExpiresAt,
 		})
@@ -35,7 +35,7 @@ func sessionHandler(w http.ResponseWriter, r *http.Request) {
 		return
 
 	case http.MethodDelete:
-		sessionCookie, err := r.Cookie("sessionid")
+		sessionCookie, err := r.Cookie(GetSessionIDCookieName())
 		if err != nil {
 			w.WriteHeader(http.StatusUnauthorized)
 			log.Printf("unauthorized attempt at deleting session, no session cookie")
@@ -56,7 +56,7 @@ func entriesHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	sessionCookie, err := r.Cookie("sessionid")
+	sessionCookie, err := r.Cookie(GetSessionIDCookieName())
 	if err != nil {
 		w.WriteHeader(http.StatusUnauthorized)
 		log.Printf("unauthorized attempt at listing entries, no session cookie")
