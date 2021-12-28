@@ -30,14 +30,16 @@ func sessionHandler(w http.ResponseWriter, r *http.Request) {
 			Value:    session.ID,
 			HttpOnly: true,
 			Secure:   GetIsSecure(),
+			SameSite: http.SameSiteStrictMode,
 			Expires:  session.ExpiresAt,
 		})
 
 		http.SetCookie(w, &http.Cookie{
-			Name:    GetSessionActiveCookieName(),
-			Value:   "1",
-			Secure:  GetIsSecure(),
-			Expires: session.ExpiresAt,
+			Name:     GetSessionActiveCookieName(),
+			Value:    "1",
+			Secure:   GetIsSecure(),
+			SameSite: http.SameSiteStrictMode,
+			Expires:  session.ExpiresAt,
 		})
 
 		log.Printf("session created with ID %s", session.ID)
