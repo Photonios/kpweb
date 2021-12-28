@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSetRecoilState } from 'recoil';
+import { Pane, Heading, majorScale } from 'evergreen-ui';
 
 import { createSession } from '../api';
 import { hasSessionState } from './state';
@@ -23,7 +24,22 @@ const LoginScreen = () => {
     }
   };
 
-  return <PasswordForm onSubmit={onSubmit} errorMessage={errorMessage} />;
+  return (
+    <Pane
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+      justifyContent="center"
+      width="100%"
+      height="100%"
+      padding={majorScale(1)}
+    >
+      <Heading size={700} marginBottom={majorScale(2)}>
+        KPWeb
+      </Heading>
+      <PasswordForm onSubmit={onSubmit} errorMessage={errorMessage} />
+    </Pane>
+  );
 };
 
 export default LoginScreen;

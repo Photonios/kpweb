@@ -19,6 +19,7 @@
     "esbuild": "^0.14.8",
     "eslint": "^8.5.0",
     "eslint-plugin-prefer-arrow": "^1.2.3",
+    "evergreen-ui": "^6.6.3",
     "prettier": "^2.5.1",
     "typescript": "^4.5.4"
   }
