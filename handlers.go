@@ -6,6 +6,22 @@ import (
 	"net/http"
 )
 
+type ErrorResponse struct {
+	Message string `json:"errorMessage"`
+}
+
+func writeJSONResponse(w http.ResponseWriter, data interface{}) {
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(data)
+}
+
+func writeErrorResponse(w http.ResponseWriter, message string) {
+	errorResponse := ErrorResponse{message}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(errorResponse)
+}
+
 func sessionHandler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case http.MethodPost:
@@ -14,6 +30,7 @@ func sessionHandler(w http.ResponseWriter, r *http.Request) {
 		err := json.NewDecoder(r.Body).Decode(&auth)
 		if err != nil {
 			w.WriteHeader(http.StatusBadRequest)
+			writeErrorResponse(w, "could not decode request body")
 			log.Printf("session creation failed: %s", err)
 			return
 		}
@@ -21,6 +38,7 @@ func sessionHandler(w http.ResponseWriter, r *http.Request) {
 		session, err := CreateSession(auth)
 		if err != nil {
 			w.WriteHeader(http.StatusForbidden)
+			writeErrorResponse(w, "could not create session")
 			log.Printf("session creation failed: %s", err)
 			return
 		}
@@ -52,6 +70,7 @@ func sessionHandler(w http.ResponseWriter, r *http.Request) {
 		sessionCookie, err := r.Cookie(GetSessionIDCookieName())
 		if err != nil {
 			w.WriteHeader(http.StatusUnauthorized)
+			writeErrorResponse(w, "no session cookie")
 			log.Printf("unauthorized attempt at deleting session, no session cookie")
 			return
 		}
@@ -83,6 +102,7 @@ func entriesHandler(w http.ResponseWriter, r *http.Request) {
 	sessionCookie, err := r.Cookie(GetSessionIDCookieName())
 	if err != nil {
 		w.WriteHeader(http.StatusUnauthorized)
+		writeErrorResponse(w, "no session cookie")
 		log.Printf("unauthorized attempt at listing entries, no session cookie")
 		return
 	}
@@ -90,14 +110,13 @@ func entriesHandler(w http.ResponseWriter, r *http.Request) {
 	session, err := GetSession(sessionCookie.Value)
 	if err != nil {
 		w.WriteHeader(http.StatusForbidden)
+		writeErrorResponse(w, "no valid session")
 		log.Printf("unauthorized attempt at listing entries, %s", err)
 		return
 	}
 
 	entries := ListEntriesFromDatabase(session.Database)
-
-	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(entries)
+	writeJSONResponse(w, entries)
 
 	log.Printf("entries listed by session %s", session.ID)
 }
