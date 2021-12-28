@@ -12,12 +12,12 @@ setup:
 	cd server/; go mod download
 
 client: _copy_index_html
-	cd client/; yarn esbuild kpweb/index.tsx --bundle --outfile=$(BUILD_DIR)/app.js
+	cd client/; yarn esbuild entrypoint.tsx --minify --sourcemap --bundle --outfile=$(BUILD_DIR)/app.js
 
 server: client _build_server _clean_client
 
 devclient: _clean_client _copy_index_html
-	cd client/; yarn esbuild kpweb/index.tsx --bundle --outfile=$(BUILD_DIR)/app.js --watch
+	cd client/; yarn esbuild entrypoint.tsx --bundle --sourcemap --outfile=$(BUILD_DIR)/app.js --watch
 
 devserver:
 	cd server/; go run .

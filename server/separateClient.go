@@ -1,4 +1,4 @@
-//go:build !embeddedapp
+//go:build !embeddedClient
 
 package main
 
@@ -7,5 +7,5 @@ import (
 )
 
 func getClientFileSystem() http.FileSystem {
-	return http.Dir("dist")
+	return http.Dir("build")
 }
