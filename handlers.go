@@ -28,6 +28,7 @@ func sessionHandler(w http.ResponseWriter, r *http.Request) {
 		http.SetCookie(w, &http.Cookie{
 			Name:     GetSessionIDCookieName(),
 			Value:    session.ID,
+			Path:     "/",
 			HttpOnly: true,
 			Secure:   GetIsSecure(),
 			SameSite: http.SameSiteStrictMode,
@@ -37,7 +38,9 @@ func sessionHandler(w http.ResponseWriter, r *http.Request) {
 		http.SetCookie(w, &http.Cookie{
 			Name:     GetSessionActiveCookieName(),
 			Value:    "1",
+			Path:     "/",
 			Secure:   GetIsSecure(),
+			HttpOnly: false,
 			SameSite: http.SameSiteStrictMode,
 			Expires:  session.ExpiresAt,
 		})
