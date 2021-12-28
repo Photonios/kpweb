@@ -59,7 +59,7 @@ func GetSessionLifeTimeSeconds() time.Duration {
 func GetSessionIDCookieName() string {
 	name := os.Getenv("KPWEB_SESSION_ID_COOKIE_NAME")
 	if name == "" {
-		return "kpwweb_session_id"
+		return "kpweb_session_id"
 	}
 
 	return name
@@ -68,7 +68,7 @@ func GetSessionIDCookieName() string {
 func GetSessionActiveCookieName() string {
 	name := os.Getenv("KPWEB_SESSION_ACTIVE_COOKIE_NAME")
 	if name == "" {
-		return "kpwweb_session_active"
+		return "kpweb_session_active"
 	}
 
 	return name
