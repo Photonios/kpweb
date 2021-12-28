@@ -1,6 +1,6 @@
 import React from 'react';
+import { Table } from 'evergreen-ui';
 
-import Entry from './entry';
 import { EntryDTO } from './types';
 
 interface Props {
@@ -8,11 +8,22 @@ interface Props {
 }
 
 const EntryList = ({ entries }: Props) => (
-  <div>
-    {entries.map((entry) => (
-      <Entry key={entry.id} entry={entry} />
-    ))}
-  </div>
+  <Table>
+    <Table.Head>
+      <Table.TextHeaderCell>Name</Table.TextHeaderCell>
+      <Table.TextHeaderCell>ID</Table.TextHeaderCell>
+    </Table.Head>
+    <Table.Body height="100%">
+      {entries.map((entry) => (
+        <Table.Row key={entry.id} isSelectable>
+          <Table.TextCell>
+            {[...entry.path, entry.name].join(' → ')}
+          </Table.TextCell>
+          <Table.TextCell>{entry.id}</Table.TextCell>
+        </Table.Row>
+      ))}
+    </Table.Body>
+  </Table>
 );
 
 export default EntryList;
