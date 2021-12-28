@@ -11,7 +11,8 @@ const EntryList = ({ entries }: Props) => (
   <Table>
     <Table.Head>
       <Table.TextHeaderCell>Name</Table.TextHeaderCell>
-      <Table.TextHeaderCell>ID</Table.TextHeaderCell>
+      <Table.TextHeaderCell>Username</Table.TextHeaderCell>
+      <Table.TextHeaderCell>URL</Table.TextHeaderCell>
     </Table.Head>
     <Table.Body height="100%">
       {entries.map((entry) => (
@@ -19,7 +20,8 @@ const EntryList = ({ entries }: Props) => (
           <Table.TextCell>
             {[...entry.path, entry.name].join(' → ')}
           </Table.TextCell>
-          <Table.TextCell>{entry.id}</Table.TextCell>
+          <Table.TextCell>{entry.username || '-'}</Table.TextCell>
+          <Table.TextCell>{entry.url || '-'}</Table.TextCell>
         </Table.Row>
       ))}
     </Table.Body>

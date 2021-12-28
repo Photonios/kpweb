@@ -6,9 +6,11 @@ import (
 )
 
 type Entry struct {
-	ID   string   `json:"id"`
-	Name string   `json:"name"`
-	Path []string `json:"path"`
+	ID       string   `json:"id"`
+	Name     string   `json:"name"`
+	UserName string   `json:"username"`
+	URL      string   `json:"url"`
+	Path     []string `json:"path"`
 }
 
 func ListEntriesFromDatabase(database *gokeepasslib.Database) []Entry {
@@ -31,9 +33,11 @@ func ListEntriesFromGroup(group gokeepasslib.Group, path []string) []Entry {
 		id, _ := uuid.FromBytes(rawUUID[:])
 
 		entries[i] = Entry{
-			ID:   id.String(),
-			Name: entry.GetTitle(),
-			Path: path,
+			ID:       id.String(),
+			Name:     entry.GetTitle(),
+			UserName: entry.GetContent("UserName"),
+			URL:      entry.GetContent("URL"),
+			Path:     path,
 		}
 	}
 
