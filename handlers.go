@@ -6,33 +6,56 @@ import (
 	"net/http"
 )
 
-func createSessionHandler(w http.ResponseWriter, r *http.Request) {
-	var auth Authentication
+func sessionHandler(w http.ResponseWriter, r *http.Request) {
+	switch r.Method {
+	case http.MethodPost:
+		var auth Authentication
 
-	err := json.NewDecoder(r.Body).Decode(&auth)
-	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		log.Printf("session creation failed: %s", err)
+		err := json.NewDecoder(r.Body).Decode(&auth)
+		if err != nil {
+			w.WriteHeader(http.StatusBadRequest)
+			log.Printf("session creation failed: %s", err)
+			return
+		}
+
+		session, err := CreateSession(auth)
+		if err != nil {
+			w.WriteHeader(http.StatusForbidden)
+			log.Printf("session creation failed: %s", err)
+			return
+		}
+
+		http.SetCookie(w, &http.Cookie{
+			Name:    "sessionid",
+			Value:   session.ID,
+			Expires: session.ExpiresAt,
+		})
+
+		log.Printf("session created with ID %s", session.ID)
 		return
-	}
 
-	session, err := CreateSession(auth)
-	if err != nil {
-		w.WriteHeader(http.StatusForbidden)
-		log.Printf("session creation failed: %s", err)
+	case http.MethodDelete:
+		sessionCookie, err := r.Cookie("sessionid")
+		if err != nil {
+			w.WriteHeader(http.StatusUnauthorized)
+			log.Printf("unauthorized attempt at deleting session, no session cookie")
+			return
+		}
+
+		CloseSession(sessionCookie.Value)
 		return
+
+	default:
+		w.WriteHeader(http.StatusMethodNotAllowed)
 	}
-
-	http.SetCookie(w, &http.Cookie{
-		Name:    "sessionid",
-		Value:   session.ID,
-		Expires: session.ExpiresAt,
-	})
-
-	log.Printf("session created with ID %s", session.ID)
 }
 
-func listEntriesHandler(w http.ResponseWriter, r *http.Request) {
+func entriesHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
+		w.WriteHeader(http.StatusMethodNotAllowed)
+		return
+	}
+
 	sessionCookie, err := r.Cookie("sessionid")
 	if err != nil {
 		w.WriteHeader(http.StatusUnauthorized)

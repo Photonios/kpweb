@@ -43,9 +43,18 @@ func GetSession(sessionID string) (*Session, error) {
 	}
 
 	if time.Now().After(session.ExpiresAt) {
-		delete(sessions, sessionID)
+		CloseSession(sessionID)
 		return nil, fmt.Errorf("session expired")
 	}
 
 	return &session, nil
+}
+
+func CloseSession(sessionID string) {
+	_, ok := sessions[sessionID]
+	if !ok {
+		return
+	}
+
+	delete(sessions, sessionID)
 }

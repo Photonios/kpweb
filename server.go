@@ -18,8 +18,8 @@ func main() {
 	}
 
 	http.Handle("/", http.FileServer(getAppFileSystem()))
-	http.HandleFunc("/api/session", createSessionHandler)
-	http.HandleFunc("/api/entries", listEntriesHandler)
+	http.HandleFunc("/api/session", sessionHandler)
+	http.HandleFunc("/api/entries", entriesHandler)
 
 	listen := fmt.Sprintf("%s:%d", GetHttpHost(), GetHttpPort())
 
