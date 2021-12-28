@@ -35,3 +35,12 @@ func GetSessionIDCookieName() string {
 
 	return name
 }
+
+func GetSessionActiveCookieName() string {
+	name := os.Getenv("KPWEB_SESSION_ACTIVE_COOKIE_NAME")
+	if name == "" {
+		return "kpwweb_session_active"
+	}
+
+	return name
+}

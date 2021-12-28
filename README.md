@@ -6,21 +6,25 @@ kpweb is a super simple web client for a KeePassX database. It's distributed as 
 
 Configuration happens through environment variables:
 
-* `KPWEB_DATABASE`
+- `KPWEB_DATABASE`
 
-    Path to the KeePassX database file (`*.kdbx`) to serve.
+  Path to the KeePassX database file (`*.kdbx`) to serve.
 
-* `KPWEB_HOST`
+- `KPWEB_HOST`
 
-    Optionally, the port to bind to. Default: 80
+  Optionally, the port to bind to. Default: 80
 
-* `KPWEB_HOST`
+- `KPWEB_HOST`
 
-    Optionally, the host to bind to. Default: 0.0.0.0
+  Optionally, the host to bind to. Default: 0.0.0.0
 
-* `KPWEB_SESSION_ID_COOKIE_NAME`
+- `KPWEB_SESSION_ID_COOKIE_NAME`
 
-    Optionally, the name of the session cookie. Default: kpweb_session_id 
+  Optionally, the name of the cookie that stores the session ID. Default: kpweb_session_id
+
+- `KPWEB_SESSION_ACTIVE_COOKIE_NAME`
+
+  Optionally, the name of the cookie that indicates whether there's an active session. Default: kpweb_session_active
 
 ## Building
 

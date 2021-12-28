@@ -26,8 +26,15 @@ func sessionHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		http.SetCookie(w, &http.Cookie{
-			Name:    GetSessionIDCookieName(),
-			Value:   session.ID,
+			Name:     GetSessionIDCookieName(),
+			Value:    session.ID,
+			HttpOnly: true,
+			Expires:  session.ExpiresAt,
+		})
+
+		http.SetCookie(w, &http.Cookie{
+			Name:    GetSessionActiveCookieName(),
+			Value:   "1",
 			Expires: session.ExpiresAt,
 		})
 
