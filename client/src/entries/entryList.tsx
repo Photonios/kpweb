@@ -6,17 +6,13 @@ import {
   SideSheet,
   Paragraph,
   Heading,
-  TextInput,
-  TextInputField,
   FormField,
   majorScale,
-  EyeOpenIcon,
-  ClipboardIcon,
-  IconButton,
   TextareaField,
 } from 'evergreen-ui';
 
 import useMediaQuery from '../useMediaQuery';
+import { CopyableTextInput, PasswordInput } from '../controls';
 import { EntryDTO } from './types';
 
 interface Props {
@@ -110,32 +106,27 @@ const EntryList = ({ entries }: Props) => {
               </Pane>
             </Pane>
             <Pane flex="1" overflowY="scroll" background="tint1" padding={16}>
-              <TextInputField
-                label="Username"
-                value={selectedEntry.username}
-                readOnly
-                width="100%"
-              />
-              <FormField label="Password" marginBottom={majorScale(3)}>
-                <Pane display="flex" alignItems="center">
-                  <TextInput
-                    type="password"
-                    value={'**********'}
-                    readOnly
-                    width="100%"
-                  />
-                  <IconButton icon={<EyeOpenIcon color="muted" size={20} />} />
-                  <IconButton
-                    icon={<ClipboardIcon color="muted" size={20} />}
-                  />
-                </Pane>
+              <FormField label="Username" marginBottom={majorScale(3)}>
+                <CopyableTextInput
+                  value={selectedEntry.username}
+                  readOnly={true}
+                  width="100%"
+                />
               </FormField>
-              <TextInputField
-                label="URL"
-                value={selectedEntry.url}
-                readOnly
-                width="100%"
-              />
+              <FormField label="Password" marginBottom={majorScale(3)}>
+                <PasswordInput
+                  onReveal={() => new Promise((resolve) => resolve('test1234'))}
+                  readOnly={true}
+                  width="100%"
+                />
+              </FormField>
+              <FormField label="URL" marginBottom={majorScale(3)}>
+                <CopyableTextInput
+                  value={selectedEntry.url}
+                  readOnly={true}
+                  width="100%"
+                />
+              </FormField>
               <TextareaField label="Notes" value="test" />
             </Pane>
           </>
