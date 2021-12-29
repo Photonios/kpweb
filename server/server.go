@@ -2,10 +2,23 @@ package main
 
 import (
 	"fmt"
+	"github.com/gorilla/mux"
 	"log"
 	"net/http"
 	"os"
 )
+
+func createRouter() *mux.Router {
+	fileServer := http.FileServer(getClientFileSystem())
+
+	router := mux.NewRouter()
+	router.Handle("/", fileServer)
+	router.Handle("/app.js", fileServer)
+	router.HandleFunc("/api/session", sessionHandler)
+	router.HandleFunc("/api/entries", entriesHandler)
+
+	return router
+}
 
 func main() {
 	sessions = make(map[string]Session)
@@ -17,9 +30,7 @@ func main() {
 		return
 	}
 
-	http.Handle("/", http.FileServer(getClientFileSystem()))
-	http.HandleFunc("/api/session", sessionHandler)
-	http.HandleFunc("/api/entries", entriesHandler)
+	http.Handle("/", createRouter())
 
 	listen := fmt.Sprintf("%s:%d", GetHttpHost(), GetHttpPort())
 
