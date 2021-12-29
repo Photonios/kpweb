@@ -23,7 +23,7 @@ const EntrySheetContent = ({ entry }: Props) => (
     <FormField label="URL" marginBottom={majorScale(3)}>
       <CopyableTextInput value={entry.url} readOnly={true} width="100%" />
     </FormField>
-    <TextareaField label="Notes" value="test" readOnly />
+    <TextareaField label="Notes" value={entry.notes} readOnly />
   </Pane>
 );
 

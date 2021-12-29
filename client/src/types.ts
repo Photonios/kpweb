@@ -3,5 +3,6 @@ export interface EntryDTO {
   name: string;
   username: string;
   url: string;
+  notes: string;
   path: string[];
 }

@@ -10,6 +10,7 @@ type Entry struct {
 	Name     string   `json:"name"`
 	UserName string   `json:"username"`
 	URL      string   `json:"url"`
+	Notes    string   `json:"notes"`
 	Path     []string `json:"path"`
 }
 
@@ -37,6 +38,7 @@ func ListEntriesFromGroup(group gokeepasslib.Group, path []string) []Entry {
 			Name:     entry.GetTitle(),
 			UserName: entry.GetContent("UserName"),
 			URL:      entry.GetContent("URL"),
+			Notes:    entry.GetContent("Notes"),
 			Path:     path,
 		}
 	}
