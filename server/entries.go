@@ -12,6 +12,12 @@ type Entry struct {
 	URL      string   `json:"url"`
 	Notes    string   `json:"notes"`
 	Path     []string `json:"path"`
+
+	keePassEntry gokeepasslib.Entry
+}
+
+func (entry *Entry) GetPassword() string {
+	return entry.keePassEntry.GetPassword()
 }
 
 func ListEntriesFromDatabase(database *gokeepasslib.Database) []Entry {
@@ -34,12 +40,13 @@ func ListEntriesFromGroup(group gokeepasslib.Group, path []string) []Entry {
 		id, _ := uuid.FromBytes(rawUUID[:])
 
 		entries[i] = Entry{
-			ID:       id.String(),
-			Name:     entry.GetTitle(),
-			UserName: entry.GetContent("UserName"),
-			URL:      entry.GetContent("URL"),
-			Notes:    entry.GetContent("Notes"),
-			Path:     path,
+			ID:           id.String(),
+			Name:         entry.GetTitle(),
+			UserName:     entry.GetContent("UserName"),
+			URL:          entry.GetContent("URL"),
+			Notes:        entry.GetContent("Notes"),
+			Path:         path,
+			keePassEntry: entry,
 		}
 	}
 
@@ -52,4 +59,14 @@ func ListEntriesFromGroup(group gokeepasslib.Group, path []string) []Entry {
 	}
 
 	return entries
+}
+
+func FindEntryByID(database *gokeepasslib.Database, id string) *Entry {
+	for _, entry := range ListEntriesFromDatabase(database) {
+		if entry.ID == id {
+			return &entry
+		}
+	}
+
+	return nil
 }

@@ -4,6 +4,8 @@ import { Pane, FormField, majorScale, TextareaField } from 'evergreen-ui';
 import { EntryDTO } from '../types';
 import { CopyableTextInput, PasswordInput } from '../controls';
 
+import { revealEntryPassword } from '../api';
+
 interface Props {
   entry: EntryDTO;
 }
@@ -15,7 +17,7 @@ const EntrySheetContent = ({ entry }: Props) => (
     </FormField>
     <FormField label="Password" marginBottom={majorScale(3)}>
       <PasswordInput
-        onReveal={() => new Promise((resolve) => resolve('test1234'))}
+        onReveal={() => revealEntryPassword(entry.id)}
         readOnly={true}
         width="100%"
       />
