@@ -11,7 +11,7 @@ import {
   TextareaField,
 } from 'evergreen-ui';
 
-import useMediaQuery from '../useMediaQuery';
+import { useMediaQueryBreakpoints } from '../styling';
 import { CopyableTextInput, PasswordInput } from '../controls';
 import { EntryDTO } from './types';
 
@@ -22,8 +22,7 @@ interface Props {
 const normalize = (text: string): string => text.toLowerCase().replace(' ', '');
 
 const EntryList = ({ entries }: Props) => {
-  const isLargeWindow = useMediaQuery('(min-width: 1200px)');
-  const isMediumWindow = useMediaQuery('(min-width: 900px)');
+  const breakpoints = useMediaQueryBreakpoints();
 
   const [query, setQuery] = React.useState('');
   const [filteredEntries, setFilteredEntries] = React.useState(entries);
@@ -41,10 +40,10 @@ const EntryList = ({ entries }: Props) => {
       <Table>
         <Table.Head>
           <Table.SearchHeaderCell value={query} onChange={setQuery} />
-          {isMediumWindow && (
+          {breakpoints.isMedium && (
             <Table.TextHeaderCell>Username</Table.TextHeaderCell>
           )}
-          {isLargeWindow && <Table.TextHeaderCell>URL</Table.TextHeaderCell>}
+          {breakpoints.isLarge && <Table.TextHeaderCell>URL</Table.TextHeaderCell>}
         </Table.Head>
         <Table.Body height="100%">
           {filteredEntries.map((entry) => (
@@ -64,10 +63,10 @@ const EntryList = ({ entries }: Props) => {
                   {[...entry.path, entry.name].join(' → ')}
                 </Text>
               </Table.Cell>
-              {isMediumWindow && (
+              {breakpoints.isMedium && (
                 <Table.TextCell>{entry.username || '-'}</Table.TextCell>
               )}
-              {isLargeWindow && (
+              {breakpoints.isLarge && (
                 <Table.TextCell>{entry.url || '-'}</Table.TextCell>
               )}
             </Table.Row>
@@ -75,7 +74,7 @@ const EntryList = ({ entries }: Props) => {
         </Table.Body>
       </Table>
       <SideSheet
-        position={isMediumWindow ? 'right' : 'bottom'}
+        position={breakpoints.isMedium ? 'right' : 'bottom'}
         isShown={!!selectedEntry}
         onBeforeClose={() => setSelectedEntry(null)}
         preventBodyScrolling
@@ -127,7 +126,7 @@ const EntryList = ({ entries }: Props) => {
                   width="100%"
                 />
               </FormField>
-              <TextareaField label="Notes" value="test" />
+              <TextareaField label="Notes" value="test" readOnly />
             </Pane>
           </>
         )}
