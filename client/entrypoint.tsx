@@ -4,5 +4,5 @@ import ReactDOM from 'react-dom';
 import { App } from './src';
 
 window.addEventListener('DOMContentLoaded', () => {
-  ReactDOM.render(<App />, document.body);
+  ReactDOM.render(<App />, document.getElementById('app'));
 });
