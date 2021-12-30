@@ -6,6 +6,7 @@ import {
   ClipboardIcon,
   EyeOnIcon,
   EyeOffIcon,
+  majorScale,
 } from 'evergreen-ui';
 
 import { sendToClipboard } from '../clipboard';
@@ -63,6 +64,7 @@ const PasswordInput = ({ onReveal, ...props }: Props) => {
         disabled={isLoading}
         icon={<ClipboardIcon color="muted" size={20} />}
         onClick={copy}
+        marginLeft={majorScale(1)}
       />
       <IconButton
         disabled={isLoading}
@@ -74,6 +76,7 @@ const PasswordInput = ({ onReveal, ...props }: Props) => {
           )
         }
         onClick={valueVisible ? hide : reveal}
+        marginLeft={majorScale(1)}
       />
     </Pane>
   );

@@ -1,5 +1,11 @@
 import React from 'react';
-import { Pane, TextInput, IconButton, ClipboardIcon } from 'evergreen-ui';
+import {
+  Pane,
+  TextInput,
+  IconButton,
+  ClipboardIcon,
+  majorScale,
+} from 'evergreen-ui';
 
 import { sendToClipboard } from '../clipboard';
 
@@ -15,6 +21,7 @@ const CopyableTextInput = ({ value, ...props }: Props) => {
       <IconButton
         icon={<ClipboardIcon color="muted" size={20} />}
         onClick={copyToClipboard}
+        marginLeft={majorScale(1)}
       />
     </Pane>
   );
