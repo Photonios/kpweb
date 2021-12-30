@@ -18,7 +18,7 @@ const EntryTable = ({ entries, query, onQuery, onEntryClick }: Props) => {
   return (
     <Table>
       <Table.Head>
-        <Table.SearchHeaderCell value={query} onChange={onQuery} />
+        <Table.SearchHeaderCell value={query} onChange={onQuery} autoFocus />
         {breakpoints.isMedium && (
           <Table.TextHeaderCell>Username</Table.TextHeaderCell>
         )}
