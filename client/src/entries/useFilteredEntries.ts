@@ -11,18 +11,24 @@ const tokenize = (text: string): string[] =>
     .replace(/[^0-9a-zA-Z_ ]/gi, '')
     .split(' ');
 
+const tokenizeEntry = (entry: EntryDTO): string[] => [
+  ...entry.path.map(tokenize),
+  ...tokenize(entry.name),
+  ...tokenize(entry.username),
+];
+
 const filterEntries = AwesomeDebouncePromise(
   (entries: EntryDTO[], query: string) => {
     const queryTokens = tokenize(query);
 
-    return entries.filter(({ name, path }) => {
-      const entryTokens = [...path.map(tokenize), ...tokenize(name)];
+    return entries.filter((entry) => {
+      const entryTokens = tokenizeEntry(entry);
       return queryTokens.every((queryToken) =>
         entryTokens.some((entryToken) => entryToken.includes(queryToken))
       );
     });
   },
-  200
+  150
 );
 
 const useFilteredEntries = (entries: EntyDTO[], query: string): EntryDTO[] => {
