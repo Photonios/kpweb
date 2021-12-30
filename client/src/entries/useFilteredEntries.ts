@@ -15,6 +15,7 @@ const tokenize = (text: string): string[] =>
 
 const tokenizeEntry = (entry: EntryDTO): string[] => [
   ...entry.path.map(tokenize),
+  ...entry.tags.map(tokenize),
   ...tokenize(entry.name),
   ...tokenize(entry.username),
 ];
