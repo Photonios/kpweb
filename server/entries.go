@@ -47,7 +47,9 @@ func ListEntriesFromGroup(group gokeepasslib.Group, path []string) []Entry {
 		}
 
 		entryPath := path[:]
-		if GetHideRootGroupName() {
+		if GetHideGroupNames() {
+			entryPath = make([]string, 0)
+		} else if GetHideRootGroupName() {
 			entryPath = path[1:]
 		}
 

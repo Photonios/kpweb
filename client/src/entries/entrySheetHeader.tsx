@@ -24,10 +24,16 @@ const EntrySheetHeader = ({ entry }: Props) => {
     >
       <Pane padding={majorScale(2)} borderBottom="muted">
         <Heading size={600}>{entry.name}</Heading>
-        <Paragraph size={400} color="muted">
-          {entryPath}
-        </Paragraph>
-        <EntryTags tags={entry.tags} />
+        {!!entryPath?.length && (
+          <Paragraph size={400} color="muted">
+            {entryPath}
+          </Paragraph>
+        )}
+        {!!entry.tags?.length && (
+          <Pane marginTop={majorScale(1) / 2}>
+            <EntryTags tags={entry.tags} />
+          </Pane>
+        )}
       </Pane>
     </Pane>
   );

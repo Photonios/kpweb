@@ -55,6 +55,10 @@ Configuration happens through environment variables:
 
   Optionally, the name of the cookie that indicates whether there's an active session. Default: `kpweb_session_active`.
 
+- `KPWEB_HIDE_GROUP_NAMES`
+
+   Hides group names completely and treats all entries as if they are in the root. This is useful if you use tags to group entries instead. Default: `false`.
+
 - `KPWEB_HIDE_ROOT_GROUP_NAME`
 
   Hide the names of root groups and  display the entries and child groups as if they're all in the root directly. This can be useful if you have a single root group with all your entries. Enabling this option hides the name of your root group. Default: `false`.
