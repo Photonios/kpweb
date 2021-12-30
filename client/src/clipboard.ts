@@ -7,7 +7,7 @@ export const sendToClipboard = (value: string, description: string) => {
       toaster.notify('Sent to clipboard', {
         id: 'clipboard-success',
         description,
-        duration: 2,
+        duration: 1,
       });
     })
     .catch((err) => {
