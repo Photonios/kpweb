@@ -2,10 +2,30 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-kpweb is a super simple web client for a KeePassX database. It's distributed as a single, self-contained binary that serves a web app over HTTP. The web app is written in TypeScript/React and is embedded in the binary that contains the HTTP server.
+kpweb is a super read-only simple web client for a KeePassX database. It's distributed as a single, self-contained binary that serves a web app over HTTP. The web app is written in TypeScript/React and is embedded in the binary that contains the HTTP server.
+
+## Disclaimer
+This is very early and experimental work. I build this for myself because I needed it and none of the available options statisfied me. It lacks a lot of features you might expect from a fully-fledged client. I might implement some of them at some point, but the current feature set is good enough for me. I am releasing this so that others might find it useful as well, it was not built with others in mind, but it could be. Feel free to fork :)
+
+## Features
+* As-you-type search through entries.
+* View username, password, URL and notes for entries.
+* Responsive design.
+* Copy to clipboard buttons
+* Show/hide password
+
+## Limitations
+* Read-only
+* Serves only one KeePass database file.
+* No tree view
+* No attachments
+* No tags
+* No plugins
+* No key file support
+* No icons
+* No history
 
 ## Configuration
-
 Configuration happens through environment variables:
 
 - `KPWEB_DATABASE`
@@ -48,7 +68,8 @@ Configuration happens through environment variables:
 Install the Node dependencies:
 
 ```shell
-yarn install
+$ cd client
+$ yarn install
 ```
 
 ### Make a build
@@ -64,13 +85,13 @@ You'll find the resulting binary in `dist/`.
 In one terminal, run the JS bundler in watch mode:
 
 ```shell
-make devapp
+$ make devclient
 ```
 
 In another one, run the server:
 
 ```shell
-make devserver
+$ make devserver
 ```
 
-You can now make changes to both the Go code and the React app. The app will automatically rebuild on changes and the Go server will automatically restart on changes.
+You can now make changes to both the Go code and the React app. The app will automatically rebuild on changes. You'll have to restart the server if you make changes to the Go code.
