@@ -4,6 +4,8 @@ import AwesomeDebouncePromise from 'awesome-debounce-promise';
 
 import { EntryDTO } from '../types';
 
+type TokenizedEntries = [string[], EntryDTO][];
+
 const tokenize = (text: string): string[] =>
   text
     .trim()
@@ -17,21 +19,29 @@ const tokenizeEntry = (entry: EntryDTO): string[] => [
   ...tokenize(entry.username),
 ];
 
+const tokenizeEntries = (entries: EntryDTO): TokenizedEntries =>
+  entries.map((entry) => [tokenizeEntry(entry), entry]);
+
 const filterEntries = AwesomeDebouncePromise(
-  (entries: EntryDTO[], query: string) => {
+  (tokenizedEntries: TokenizedEntries, query: string) => {
     const queryTokens = tokenize(query);
 
-    return entries.filter((entry) => {
-      const entryTokens = tokenizeEntry(entry);
-      return queryTokens.every((queryToken) =>
-        entryTokens.some((entryToken) => entryToken.includes(queryToken))
-      );
-    });
+    return tokenizedEntries
+      .filter(([entryTokens, _]) =>
+        queryTokens.every((queryToken) =>
+          entryTokens.some((entryToken) => entryToken.includes(queryToken))
+        )
+      )
+      .map(([_, entry]) => entry);
   },
   150
 );
 
 const useFilteredEntries = (entries: EntyDTO[], query: string): EntryDTO[] => {
+  const tokenizedEntries = React.useMemo(
+    () => tokenizeEntries(entries),
+    [entries]
+  );
   const [filteredEntries, setFilteredEntries] = React.useState(entries);
 
   React.useEffect(async () => {
@@ -40,7 +50,7 @@ const useFilteredEntries = (entries: EntyDTO[], query: string): EntryDTO[] => {
       return;
     }
 
-    setFilteredEntries(await filterEntries(entries, query));
+    setFilteredEntries(await filterEntries(tokenizedEntries, query));
   }, [entries, query]);
 
   return filteredEntries;
