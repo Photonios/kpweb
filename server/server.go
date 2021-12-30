@@ -18,7 +18,7 @@ func createRouter() *mux.Router {
 	fileServer := http.FileServer(getClientFileSystem())
 
 	router := mux.NewRouter()
-	router.Handle("/", defaultMiddleware(fileServer))
+	router.Handle("/", securityHeadersMiddleware(defaultMiddleware(fileServer)))
 	router.Handle("/app.js", defaultMiddleware(fileServer))
 	router.Handle("/api/session", http.HandlerFunc(sessionHandler))
 	router.Handle("/api/entries", http.HandlerFunc(entriesHandler))
