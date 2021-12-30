@@ -19,7 +19,6 @@ This is very early and experimental work. I build this for myself because I need
 * Serves only one KeePass database file.
 * No tree view
 * No attachments
-* No tags
 * No plugins
 * No key file support
 * No icons

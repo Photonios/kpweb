@@ -5,4 +5,5 @@ export interface EntryDTO {
   url: string;
   notes: string;
   path: string[];
+  tags: string[];
 }

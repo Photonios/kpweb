@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/google/uuid"
 	"github.com/tobischo/gokeepasslib/v3"
+	"strings"
 )
 
 type Entry struct {
@@ -12,6 +13,7 @@ type Entry struct {
 	URL      string   `json:"url"`
 	Notes    string   `json:"notes"`
 	Path     []string `json:"path"`
+	Tags     []string `json:"tags"`
 
 	keePassEntry gokeepasslib.Entry
 }
@@ -39,6 +41,11 @@ func ListEntriesFromGroup(group gokeepasslib.Group, path []string) []Entry {
 		rawUUID := [16]byte(entry.UUID)
 		id, _ := uuid.FromBytes(rawUUID[:])
 
+		tags := make([]string, 0)
+		if entry.Tags != "" {
+			tags = strings.Split(entry.Tags, ";")
+		}
+
 		entries[i] = Entry{
 			ID:           id.String(),
 			Name:         entry.GetTitle(),
@@ -46,6 +53,7 @@ func ListEntriesFromGroup(group gokeepasslib.Group, path []string) []Entry {
 			URL:          entry.GetContent("URL"),
 			Notes:        entry.GetContent("Notes"),
 			Path:         path,
+			Tags:         tags,
 			keePassEntry: entry,
 		}
 	}
