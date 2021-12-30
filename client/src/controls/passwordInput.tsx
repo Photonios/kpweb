@@ -8,6 +8,8 @@ import {
   EyeOffIcon,
 } from 'evergreen-ui';
 
+import { sendToClipboard } from '../clipboard';
+
 type Props = Omit<React.ComponentProps<typeof TextInput>, 'type' | 'value'> & {
   onReveal: () => Promise<string>;
 };
@@ -24,7 +26,13 @@ const PasswordInput = ({ onReveal, ...props }: Props) => {
   const copy = async () => {
     const retrievedValue = await onReveal();
     setValue(retrievedValue);
+
     navigator.clipboard.writeText(retrievedValue);
+
+    sendToClipboard(
+      retrievedValue,
+      'The password was send to the clipboard. Be careful with where you paste it.'
+    );
   };
 
   const hide = () => {
