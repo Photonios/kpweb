@@ -20,10 +20,67 @@
         height: 100vh;
         width: 100vw;
       }
+
+      #placeholder-loading-spinner {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+      }
+
+      @keyframes loading-spinner-rotate {
+        0% {
+          transform: rotate(0);
+        }
+
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      @keyframes loading-spinner-half {
+        0% {
+          stroke-dashoffset: 600;
+        }
+
+        100% {
+          stroke-dashoffset: 0;
+        }
+      }
+
+      .loading-spinner {
+        animation: loading-spinner-half 2s linear infinite;
+        color: rgba(67, 90, 111, 0.47);
+      }
+
+      .loading-spinner circle {
+        stroke-dashoffset: 600;
+        stroke-dasharray: 300;
+        stroke-width: 12;
+        stroke-miterlimit: 10;
+        stroke-linecap: round;
+        stroke: rgba(67, 90, 111, 0.47);
+        fill: transparent;
+        animation: loading-spinner-half 1.6s cubic-bezier(0.4, 0.15, 0.6, 0.85)
+          infinite;
+      }
     </style>
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <div id="placeholder-loading-spinner">
+        <svg
+          class="loading-spinner"
+          x="0px"
+          y="0px"
+          with="40"
+          height="40"
+          viewBox="0 0 150 150"
+        >
+          <circle cx="75" cy="75" r="60"></circle>
+        </svg>
+      </div>
+    </div>
     <script src="/app.js"></script>
   </body>
 </html>
