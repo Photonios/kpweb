@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/google/uuid"
 	"github.com/tobischo/gokeepasslib/v3"
+	"net/http"
 	"time"
 )
 
@@ -57,4 +58,38 @@ func CloseSession(sessionID string) {
 	}
 
 	delete(sessions, sessionID)
+}
+
+func SetSessionCookies(session *Session, w http.ResponseWriter) {
+	http.SetCookie(w, &http.Cookie{
+		Name:     GetSessionIDCookieName(),
+		Value:    session.ID,
+		Path:     "/",
+		HttpOnly: true,
+		Secure:   GetIsSecure(),
+		SameSite: http.SameSiteStrictMode,
+		Expires:  session.ExpiresAt,
+	})
+
+	http.SetCookie(w, &http.Cookie{
+		Name:     GetSessionActiveCookieName(),
+		Value:    "1",
+		Path:     "/",
+		Secure:   GetIsSecure(),
+		HttpOnly: false,
+		SameSite: http.SameSiteStrictMode,
+		Expires:  session.ExpiresAt,
+	})
+}
+
+func ClearSessionCookies(w http.ResponseWriter) {
+	http.SetCookie(w, &http.Cookie{
+		Name:   GetSessionIDCookieName(),
+		MaxAge: -1,
+	})
+
+	http.SetCookie(w, &http.Cookie{
+		Name:   GetSessionActiveCookieName(),
+		MaxAge: -1,
+	})
 }

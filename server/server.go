@@ -8,15 +8,21 @@ import (
 	"os"
 )
 
+func wrapHandler(h http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		h.ServeHTTP(w, r)
+	})
+}
+
 func createRouter() *mux.Router {
 	fileServer := http.FileServer(getClientFileSystem())
 
 	router := mux.NewRouter()
-	router.Handle("/", fileServer)
-	router.Handle("/app.js", fileServer)
-	router.HandleFunc("/api/session", sessionHandler)
-	router.HandleFunc("/api/entries", entriesHandler)
-	router.HandleFunc("/api/entries/{entryID}/password", passwordHandler)
+	router.Handle("/", defaultMiddleware(fileServer))
+	router.Handle("/app.js", defaultMiddleware(fileServer))
+	router.Handle("/api/session", http.HandlerFunc(sessionHandler))
+	router.Handle("/api/entries", http.HandlerFunc(entriesHandler))
+	router.Handle("/api/entries/{entryID}/password", http.HandlerFunc(passwordHandler))
 
 	return router
 }

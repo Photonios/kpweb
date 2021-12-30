@@ -48,25 +48,7 @@ func sessionHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		http.SetCookie(w, &http.Cookie{
-			Name:     GetSessionIDCookieName(),
-			Value:    session.ID,
-			Path:     "/",
-			HttpOnly: true,
-			Secure:   GetIsSecure(),
-			SameSite: http.SameSiteStrictMode,
-			Expires:  session.ExpiresAt,
-		})
-
-		http.SetCookie(w, &http.Cookie{
-			Name:     GetSessionActiveCookieName(),
-			Value:    "1",
-			Path:     "/",
-			Secure:   GetIsSecure(),
-			HttpOnly: false,
-			SameSite: http.SameSiteStrictMode,
-			Expires:  session.ExpiresAt,
-		})
+		SetSessionCookies(session, w)
 
 		log.Printf("session created with ID %s", session.ID)
 		return
@@ -81,16 +63,7 @@ func sessionHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		CloseSession(sessionCookie.Value)
-
-		http.SetCookie(w, &http.Cookie{
-			Name:   GetSessionIDCookieName(),
-			MaxAge: -1,
-		})
-
-		http.SetCookie(w, &http.Cookie{
-			Name:   GetSessionActiveCookieName(),
-			MaxAge: -1,
-		})
+		ClearSessionCookies(w)
 		return
 
 	default:
