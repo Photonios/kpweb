@@ -41,7 +41,7 @@ Configuration happens through environment variables:
 
 - `KPWEB_SECURE`
 
-  Optionally, whether kpweb is served over HTTPS and cookies should be set as "secure".
+  Optionally, whether kpweb is served over HTTPS and cookies should be set as "secure". Default: `false`.
 
 - `KPWEB_SESSION_LIFETIME_SECONDS`
 
@@ -54,6 +54,10 @@ Configuration happens through environment variables:
 - `KPWEB_SESSION_ACTIVE_COOKIE_NAME`
 
   Optionally, the name of the cookie that indicates whether there's an active session. Default: `kpweb_session_active`.
+
+- `KPWEB_HIDE_ROOT_GROUP_NAME`
+
+  Hide the names of root groups and  display the entries and child groups as if they're all in the root directly. This can be useful if you have a single root group with all your entries. Enabling this option hides the name of your root group. Default: `false`.
 
 ## Building
 

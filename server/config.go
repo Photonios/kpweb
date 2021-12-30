@@ -73,3 +73,17 @@ func GetSessionActiveCookieName() string {
 
 	return name
 }
+
+func GetHideRootGroupName() bool {
+	rawValue := os.Getenv("KPWEB_HIDE_ROOT_GROUP_NAME")
+	if rawValue == "" {
+		return false
+	}
+
+	isSecure, err := strconv.ParseBool(rawValue)
+	if err != nil {
+		return false
+	}
+
+	return isSecure
+}

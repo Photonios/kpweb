@@ -46,13 +46,18 @@ func ListEntriesFromGroup(group gokeepasslib.Group, path []string) []Entry {
 			tags = strings.Split(entry.Tags, ";")
 		}
 
+		entryPath := path[:]
+		if GetHideRootGroupName() {
+			entryPath = path[1:]
+		}
+
 		entries[i] = Entry{
 			ID:           id.String(),
 			Name:         entry.GetTitle(),
 			UserName:     entry.GetContent("UserName"),
 			URL:          entry.GetContent("URL"),
 			Notes:        entry.GetContent("Notes"),
-			Path:         path,
+			Path:         entryPath,
 			Tags:         tags,
 			keePassEntry: entry,
 		}
