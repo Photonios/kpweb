@@ -7,6 +7,7 @@ import {
   EyeOnIcon,
   EyeOffIcon,
   majorScale,
+  toaster,
 } from 'evergreen-ui';
 
 import { sendToClipboard } from '../clipboard';
@@ -26,19 +27,33 @@ const PasswordInput = ({ onReveal, ...props }: Props) => {
     }
 
     setIsLoading(true);
-    setValue(await onReveal());
-    setIsLoading(false);
 
+    try {
+      setValue(await onReveal());
+    } catch (err) {
+      toaster.danger('Password retrieval failed', {
+        description:
+          "Retrieving the password from the server failed for some reason. More details might be found in your browser's DevTools.",
+      });
+    }
+
+    setIsLoading(false);
     return value;
   };
 
   const reveal = async () => {
-    await retrieve();
-    setValueVisible(true);
+    const revealedValue = await retrieve();
+    if (revealedValue === null) {
+      setValueVisible(true);
+    }
   };
 
   const copy = async () => {
     const retrievedValue = await retrieve();
+    if (retrievedValue === null) {
+      return;
+    }
+
     navigator.clipboard.writeText(retrievedValue);
 
     sendToClipboard(
