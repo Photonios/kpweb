@@ -20,6 +20,7 @@ func createRouter() *mux.Router {
 	router := mux.NewRouter()
 	router.Handle("/", securityHeadersMiddleware(defaultMiddleware(fileServer)))
 	router.Handle("/app.js", defaultMiddleware(fileServer))
+	router.Handle("/app.js.map", defaultMiddleware(fileServer))
 	router.Handle("/api/session", http.HandlerFunc(sessionHandler))
 	router.Handle("/api/entries", http.HandlerFunc(entriesHandler))
 	router.Handle("/api/entries/{entryID}/password", http.HandlerFunc(passwordHandler))
