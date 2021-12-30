@@ -1,5 +1,7 @@
 # kpweb
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 kpweb is a super simple web client for a KeePassX database. It's distributed as a single, self-contained binary that serves a web app over HTTP. The web app is written in TypeScript/React and is embedded in the binary that contains the HTTP server.
 
 ## Configuration
