@@ -1,0 +1,33 @@
+builds:
+  - env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - windows
+      - darwin
+      - netbsd
+      - openbsd
+    tags:
+      - embeddedClient
+
+archives:
+  - format_overrides:
+      - goos: windows
+        format: zip
+
+nfpms:
+  - formats:
+      - apk
+      - deb
+      - rpm
+
+checksum:
+  name_template: 'checksums.txt'
+
+snapshot:
+  name_template: "{{ incpatch .Version }}-next"
+
+release:
+  github:
+    owner: Photonios
+    name: kpweb
