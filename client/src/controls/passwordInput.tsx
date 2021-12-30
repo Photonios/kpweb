@@ -32,6 +32,7 @@ const PasswordInput = ({ onReveal, ...props }: Props) => {
       setValue(await onReveal());
     } catch (err) {
       toaster.danger('Password retrieval failed', {
+        id: 'password-retrieval-failure',
         description:
           "Retrieving the password from the server failed for some reason. More details might be found in your browser's DevTools.",
       });
