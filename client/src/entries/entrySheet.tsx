@@ -31,7 +31,7 @@ const EntrySheet = ({ entry, onClose }: Props) => {
       {entry ? (
         <>
           <EntrySheetHeader entry={entry} />
-          <EntrySheetContent entry={entry} />{' '}
+          <EntrySheetContent entry={entry} />
         </>
       ) : (
         <span>placeholder</span>

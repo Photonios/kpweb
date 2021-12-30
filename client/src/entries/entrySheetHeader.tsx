@@ -2,6 +2,7 @@ import React from 'react';
 import { Pane, Paragraph, Heading, majorScale } from 'evergreen-ui';
 
 import { EntryDTO } from '../types';
+import EntryTags from './entryTags';
 import useEntryPath from './useEntryPath';
 
 interface Props {
@@ -26,6 +27,7 @@ const EntrySheetHeader = ({ entry }: Props) => {
         <Paragraph size={400} color="muted">
           {entryPath}
         </Paragraph>
+        <EntryTags tags={entry.tags} />
       </Pane>
     </Pane>
   );
