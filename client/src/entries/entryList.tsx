@@ -1,4 +1,5 @@
 import React from 'react';
+import { SearchInput, Pane, majorScale } from 'evergreen-ui';
 import { useRecoilValue } from 'recoil';
 
 import { entriesState } from './state';
@@ -15,6 +16,21 @@ const EntryList = () => {
 
   return (
     <>
+      <Pane
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+        padding={majorScale(2)}
+        backgroundColor="#F9FAFC"
+        autoFocus
+      >
+        <SearchInput
+          placeholder="Type to filter..."
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          width="100%"
+        />
+      </Pane>
       <EntryTable
         entries={filteredEntries}
         query={query}
