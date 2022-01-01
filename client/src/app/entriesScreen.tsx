@@ -4,7 +4,7 @@ import { Pane, majorScale } from 'evergreen-ui';
 import { useRecoilValue } from 'recoil';
 import { ErrorBoundary } from 'react-error-boundary';
 import { HeaderContainer } from '@kpweb/ui/navigation';
-import { LoadingPane } from '@kpweb/ui/panes';
+import { LoadingPane, ErrorPane } from '@kpweb/ui/panes';
 import { LogoutButton } from '@kpweb/ui/session';
 import { StretchedSearchInput } from '@kpweb/ui/controls';
 import { EntryTable, EntrySheet, useFilteredEntries } from '@kpweb/ui/entry';
@@ -45,7 +45,14 @@ const StatefulEntryList = () => {
 };
 
 const EntriesScreen = () => (
-  <ErrorBoundary fallback={<div>Oh shit!</div>}>
+  <ErrorBoundary
+    fallback={
+      <ErrorPane>
+        We weren't able to load the entries. Check your browser's development
+        tools and the server logs to see what's wrong.
+      </ErrorPane>
+    }
+  >
     <React.Suspense fallback={<LoadingPane />}>
       <StatefulEntryList />
     </React.Suspense>
