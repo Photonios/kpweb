@@ -1,8 +1,7 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil';
 import { ErrorBoundary } from 'react-error-boundary';
-
-import { LoadingPane, EntryList } from '@kpweb/ui';
+import { EntryList, LoadingPane } from '@kpweb/ui';
 import { revealPassword } from '@kpweb/api';
 
 import { entriesState } from './state';

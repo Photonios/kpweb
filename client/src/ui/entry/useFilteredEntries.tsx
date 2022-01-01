@@ -1,7 +1,5 @@
 import React from 'react';
-
 import AwesomeDebouncePromise from 'awesome-debounce-promise';
-
 import { EntryDTO } from '@kpweb/taxonomies';
 
 type TokenizedEntries = [string[], EntryDTO][];

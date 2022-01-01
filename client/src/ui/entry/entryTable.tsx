@@ -1,8 +1,9 @@
 import React from 'react';
 import { Table } from 'evergreen-ui';
-
 import { EntryDTO } from '@kpweb/taxonomies';
+
 import { useMediaQueryBreakpoints } from '../styling';
+
 import EntryTableRow from './entryTableRow';
 
 interface Props {

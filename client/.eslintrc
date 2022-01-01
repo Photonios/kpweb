@@ -1,7 +1,7 @@
 {
   "extends": ["plugin:@typescript-eslint/recommended"],
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint", "prefer-arrow"],
+  "plugins": ["@typescript-eslint", "prefer-arrow", "import"],
   "rules": {
     "@typescript-eslint/indent": ["error", 2],
     "@typescript-eslint/no-unused-vars": [
@@ -13,6 +13,13 @@
       }
     ],
     "@typescript-eslint/no-explicit-any": "error",
+    "import/order": [
+      "error",
+      {
+        "groups": ["builtin", "external", "internal", "parent", "sibling"],
+        "newlines-between": "always"
+      }
+    ],
     "prefer-arrow-callback": "error",
     "arrow-body-style": ["error", "as-needed"],
     "prefer-arrow/prefer-arrow-functions": ["error"],

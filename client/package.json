@@ -25,6 +25,7 @@
     "@typescript-eslint/parser": "5.8.1",
     "esbuild": "^0.14.8",
     "eslint": "^8.5.0",
+    "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-prefer-arrow": "^1.2.3",
     "prettier": "^2.5.1",
     "typescript": "^4.5.4"

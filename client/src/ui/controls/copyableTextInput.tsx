@@ -1,9 +1,9 @@
 import React from 'react';
 import {
+  ClipboardIcon,
+  IconButton,
   Pane,
   TextInput,
-  IconButton,
-  ClipboardIcon,
   majorScale,
 } from 'evergreen-ui';
 

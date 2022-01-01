@@ -1,7 +1,7 @@
 import React from 'react';
-import { Pane, FormField, majorScale, TextareaField } from 'evergreen-ui';
-
+import { FormField, Pane, TextareaField, majorScale } from 'evergreen-ui';
 import { EntryDTO } from '@kpweb/taxonomies';
+
 import { CopyableTextInput, PasswordInput } from '../controls';
 
 interface Props {

@@ -1,6 +1,5 @@
 import React, { ChangeEvent } from 'react';
-import { SearchInput, Pane, majorScale } from 'evergreen-ui';
-
+import { Pane, SearchInput, majorScale } from 'evergreen-ui';
 import { EntryDTO } from '@kpweb/taxonomies';
 
 import useFilteredEntries from './useFilteredEntries';

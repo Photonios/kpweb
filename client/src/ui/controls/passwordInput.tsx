@@ -1,11 +1,11 @@
 import React from 'react';
 import {
+  ClipboardIcon,
+  EyeOffIcon,
+  EyeOnIcon,
+  IconButton,
   Pane,
   TextInput,
-  IconButton,
-  ClipboardIcon,
-  EyeOnIcon,
-  EyeOffIcon,
   majorScale,
   toaster,
 } from 'evergreen-ui';

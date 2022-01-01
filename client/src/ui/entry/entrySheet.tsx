@@ -1,8 +1,9 @@
 import React from 'react';
 import { SideSheet } from 'evergreen-ui';
-
 import { EntryDTO } from '@kpweb/taxonomies';
+
 import { useMediaQueryBreakpoints } from '../styling';
+
 import EntrySheetHeader from './entrySheetHeader';
 import EntrySheetContent from './entrySheetContent';
 

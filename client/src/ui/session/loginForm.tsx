@@ -1,5 +1,5 @@
 import React, { ChangeEvent, FormEvent } from 'react';
-import { Alert, Pane, TextInput, Button, majorScale } from 'evergreen-ui';
+import { Alert, Button, Pane, TextInput, majorScale } from 'evergreen-ui';
 
 import useLoginErrorMessage from './useLoginErrorMessage';
 
