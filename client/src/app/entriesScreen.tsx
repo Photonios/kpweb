@@ -8,11 +8,13 @@ import { LoadingPane, ErrorPane } from '@kpweb/ui/panes';
 import { LogoutButton } from '@kpweb/ui/session';
 import { StretchedSearchInput } from '@kpweb/ui/controls';
 import { EntryTable, EntrySheet, useFilteredEntries } from '@kpweb/ui/entry';
-import { revealPassword, destroySession } from '@kpweb/api';
+import { revealPassword } from '@kpweb/api';
 
 import { entriesState } from './state';
+import useLogout from './useLogout';
 
 const StatefulEntryList = () => {
+  const logout = useLogout();
   const entries = useRecoilValue(entriesState);
 
   const [query, setQuery] = React.useState('');
@@ -20,11 +22,6 @@ const StatefulEntryList = () => {
   const [selectedEntry, setSelectedEntry] = React.useState<EntryDTO | null>(
     null
   );
-
-  const logout = () => {
-    destroySession();
-    window.location.reload();
-  };
 
   return (
     <>

@@ -1,23 +1,20 @@
 import React from 'react';
-import { useSetRecoilState } from 'recoil';
 import { LoginForm } from '@kpweb/ui/session';
-import { createSession } from '@kpweb/api';
+import { Credentials } from '@kpweb/taxonomies';
 
-import { hasSessionState } from './state';
+import useLogin from './useLogin';
 
 const LoginScreen = () => {
+  const login = useLogin();
   const [error, setError] = React.useState<Error | null>(null);
-  const setHasSession = useSetRecoilState(hasSessionState);
 
-  const onSubmit = async ({ password }: { password: string }) => {
+  const onSubmit = async (credentials: Credentials) => {
     setError(null);
 
     try {
-      await createSession({ password });
-      setHasSession(true);
+      await login(credentials);
     } catch (err) {
       setError(err as Error);
-      setHasSession(false);
     }
   };
 
