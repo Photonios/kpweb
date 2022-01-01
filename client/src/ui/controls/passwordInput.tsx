@@ -17,7 +17,7 @@ type Props = Omit<React.ComponentProps<typeof TextInput>, 'type' | 'value'> & {
 };
 
 const PasswordInput = ({ onReveal, ...props }: Props) => {
-  const [value, setValue] = React.useState(null);
+  const [value, setValue] = React.useState<string | null>(null);
   const [valueVisible, setValueVisible] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
 

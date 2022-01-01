@@ -19,7 +19,10 @@ const EntrySheet = ({ entry, onClose, onRevealPassword }: Props) => {
     <SideSheet
       position={breakpoints.isMedium ? 'right' : 'bottom'}
       isShown={!!entry}
-      onBeforeClose={onClose}
+      onBeforeClose={() => {
+        onClose();
+        return true;
+      }}
       preventBodyScrolling
       shouldCloseOnEscapePress
       shouldCloseOnOverlayClick

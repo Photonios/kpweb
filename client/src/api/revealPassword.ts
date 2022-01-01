@@ -1,6 +1,6 @@
 import { AppError, AppErrorName } from '@kpweb/error';
 
-const revealPassword = async (entryID: string) => {
+const revealPassword = async (entryID: string): Promise<string> => {
   const response = await fetch(`/api/entries/${entryID}/password`, {
     method: 'GET',
   });

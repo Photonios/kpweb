@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { ChangeEvent, FormEvent } from 'react';
 import { Alert, Pane, TextInput, Button, majorScale } from 'evergreen-ui';
 
 import useLoginErrorMessage from './useLoginErrorMessage';
 
 interface Props {
-  onSubmit: ({ password: string }) => void;
+  onSubmit: ({ password }: { password: string }) => void;
   error: Error | null;
 }
 
@@ -12,7 +12,7 @@ const LoginForm = ({ onSubmit, error }: Props) => {
   const [password, setPassword] = React.useState('');
   const errorMessage = useLoginErrorMessage(error);
 
-  const onFormSubmitted = (e) => {
+  const onFormSubmitted = (e: FormEvent<HTMLFormElement>): boolean => {
     e.preventDefault();
     onSubmit({ password });
     return false;
@@ -49,7 +49,9 @@ const LoginForm = ({ onSubmit, error }: Props) => {
           name="password"
           placeholder="Enter your database password here"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            setPassword(e.target.value)
+          }
           width="100%"
         />
         <Button appearance="primary" marginTop={majorScale(3)}>

@@ -1,7 +1,7 @@
 import { AppError, AppErrorName } from '@kpweb/error';
 import { EntryDTO } from '@kpweb/taxonomies';
 
-const listEntries = async (): EntryDTO[] => {
+const listEntries = async (): Promise<EntryDTO[]> => {
   const response = await fetch('/api/entries', {
     method: 'GET',
   });

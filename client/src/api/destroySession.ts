@@ -1,6 +1,6 @@
 import { AppError, AppErrorName } from '@kpweb/error';
 
-const destroySession = async (): void => {
+const destroySession = async (): Promise<void> => {
   const response = await fetch('/api/session', {
     method: 'DELETE',
   });

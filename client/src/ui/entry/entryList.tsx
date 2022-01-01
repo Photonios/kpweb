@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import { SearchInput, Pane, majorScale } from 'evergreen-ui';
+
+import { EntryDTO } from '@kpweb/taxonomies';
 
 import useFilteredEntries from './useFilteredEntries';
 import EntrySheet from './entrySheet';
@@ -13,7 +15,9 @@ interface Props {
 const EntryList = ({ entries, onRevealPassword }: Props) => {
   const [query, setQuery] = React.useState('');
   const filteredEntries = useFilteredEntries(entries, query);
-  const [selectedEntry, setSelectedEntry] = React.useState(null);
+  const [selectedEntry, setSelectedEntry] = React.useState<EntryDTO | null>(
+    null
+  );
 
   return (
     <>
@@ -23,21 +27,17 @@ const EntryList = ({ entries, onRevealPassword }: Props) => {
         alignItems="center"
         padding={majorScale(2)}
         backgroundColor="#F9FAFC"
-        autoFocus
       >
         <SearchInput
           placeholder="Type to filter..."
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            setQuery(e.target.value)
+          }
           width="100%"
         />
       </Pane>
-      <EntryTable
-        entries={filteredEntries}
-        query={query}
-        onQuery={setQuery}
-        onEntryClick={setSelectedEntry}
-      />
+      <EntryTable entries={filteredEntries} onEntryClick={setSelectedEntry} />
       <EntrySheet
         entry={selectedEntry}
         onClose={() => setSelectedEntry(null)}

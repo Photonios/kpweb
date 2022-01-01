@@ -1,3 +1,5 @@
+import AppErrorName from './appErrorName';
+
 type AppErrorExtraData = Record<string, unknown>;
 
 interface AppErrorData {

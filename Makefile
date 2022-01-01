@@ -26,6 +26,7 @@ fmt:
 	cd server/; go fmt
 	cd client/; yarn eslint . --fix
 	cd client/; yarn prettier -w .
+	cd client/; yarn tsc --noEmit
 
 _create_dist_dir:
 	mkdir -p $(DIST_DIR)

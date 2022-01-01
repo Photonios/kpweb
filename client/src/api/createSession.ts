@@ -1,6 +1,10 @@
 import { AppError, AppErrorName } from '@kpweb/error';
 
-const createSession = async ({ password }: { password: string }): boolean => {
+const createSession = async ({
+  password,
+}: {
+  password: string;
+}): Promise<void> => {
   const response = await fetch('/api/session', {
     method: 'POST',
     headers: {

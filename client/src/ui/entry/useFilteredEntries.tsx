@@ -14,13 +14,13 @@ const tokenize = (text: string): string[] =>
     .split(' ');
 
 const tokenizeEntry = (entry: EntryDTO): string[] => [
-  ...entry.path.map(tokenize),
-  ...entry.tags.map(tokenize),
+  ...entry.path.flatMap(tokenize),
+  ...entry.tags.flatMap(tokenize),
   ...tokenize(entry.name),
   ...tokenize(entry.username),
 ];
 
-const tokenizeEntries = (entries: EntryDTO): TokenizedEntries =>
+const tokenizeEntries = (entries: EntryDTO[]): TokenizedEntries =>
   entries.map((entry) => [tokenizeEntry(entry), entry]);
 
 const filterEntries = AwesomeDebouncePromise(
@@ -38,20 +38,24 @@ const filterEntries = AwesomeDebouncePromise(
   150
 );
 
-const useFilteredEntries = (entries: EntyDTO[], query: string): EntryDTO[] => {
+const useFilteredEntries = (entries: EntryDTO[], query: string): EntryDTO[] => {
   const tokenizedEntries = React.useMemo(
     () => tokenizeEntries(entries),
     [entries]
   );
   const [filteredEntries, setFilteredEntries] = React.useState(entries);
 
-  React.useEffect(async () => {
+  React.useEffect(() => {
     if (!query) {
       setFilteredEntries(entries);
       return;
     }
 
-    setFilteredEntries(await filterEntries(tokenizedEntries, query));
+    const performFiltering = async () => {
+      setFilteredEntries(await filterEntries(tokenizedEntries, query));
+    };
+
+    performFiltering();
   }, [entries, query]);
 
   return filteredEntries;

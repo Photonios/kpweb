@@ -20,6 +20,7 @@
     "recoil": "^0.5.2"
   },
   "devDependencies": {
+    "@types/react": "^17.0.38",
     "@typescript-eslint/eslint-plugin": "5.8.1",
     "@typescript-eslint/parser": "5.8.1",
     "esbuild": "^0.14.8",
