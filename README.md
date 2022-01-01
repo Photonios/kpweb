@@ -1,6 +1,7 @@
 # kpweb
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![check](https://github.com/Photonios/kpweb/actions/workflows/check.yml/badge.svg)](https://github.com/Photonios/kpweb/actions/workflows/check.yml)
 [![release](https://github.com/Photonios/kpweb/actions/workflows/release.yml/badge.svg)](https://github.com/Photonios/kpweb/actions/workflows/release.yml)
 
 kpweb is a super read-only simple web client for a KeePassX database. It's distributed as a single, self-contained binary that serves a web app over HTTP. The web app is written in TypeScript/React and is embedded in the binary that contains the HTTP server.
