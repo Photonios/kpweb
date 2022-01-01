@@ -4,7 +4,6 @@
 
 kpweb is a super read-only simple web client for a KeePassX database. It's distributed as a single, self-contained binary that serves a web app over HTTP. The web app is written in TypeScript/React and is embedded in the binary that contains the HTTP server.
 
-## Disclaimer
 This is very early and experimental work. I build this for myself because I needed it and none of the available options statisfied me. It lacks a lot of features you might expect from a fully-fledged client. I might implement some of them at some point, but the current feature set is good enough for me. I am releasing this so that others might find it useful as well, it was not built with others in mind, but it could be. Feel free to fork :)
 
 ## Features
@@ -23,6 +22,44 @@ This is very early and experimental work. I build this for myself because I need
 * No key file support
 * No icons
 * No history
+
+## Installation
+Binary builds for all major platforms (macOS, Linux, Windows, NetBSD, OpenBSD) all major CPU architectures (x64, x86, arm64) are automatically created upon each release.
+
+Pre-built binaries are attached to the [Github release](https://github.com/Photonios/kpweb/releases).
+
+At the moment, there's no further automatic installation. It is up to you to install/configure KPWeb. There are a few options:
+
+1. Wrap it in a Docker container, example:
+
+    ```
+    FROM scratch
+    ENTRYPOINT ["/kpweb"]
+    COPY ./kpweb /kpweb
+    ```
+
+2. Run it as a systemd service, example:
+
+    ```
+    [Unit]
+    Description=kpweb
+
+    [Service]
+    Type=simple
+    Restart=always
+    RestartSec=5s
+    Environment=KPWEB_DATABASE=/var/local/passwords.kdbx
+    Environment=KPWEB_HOST=0.0.0.0
+    Environment=KPWEB_PORT=9080
+    Environment=KPWEB_SECURE=true
+    ExecStart=/usr/local/bin/kpweb
+
+    [Install]
+    WantedBy=multi-user.target
+    ```
+
+### Packages
+DEB, APK and RPM packages are automatically built, but they don't do anything but install the binary in `/usr/local/bin`. I do not recommend you use these at this time.
 
 ## Configuration
 Configuration happens through environment variables:
