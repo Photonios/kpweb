@@ -21,6 +21,12 @@ nfpms:
       - deb
       - rpm
 
+    vendor: KPWeb
+    homepage: https://github.com/Photonios/kpweb
+    maintainer: Swen Kooij <swenkooij@gmail.com>
+    description: Web server that serves a KeePass database.
+    license: MIT
+
 checksum:
   name_template: 'checksums.txt'
 
