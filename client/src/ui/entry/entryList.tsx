@@ -1,15 +1,16 @@
 import React from 'react';
 import { SearchInput, Pane, majorScale } from 'evergreen-ui';
-import { useRecoilValue } from 'recoil';
 
-import { entriesState } from './state';
 import useFilteredEntries from './useFilteredEntries';
 import EntrySheet from './entrySheet';
 import EntryTable from './entryTable';
 
-const EntryList = () => {
-  const entries = useRecoilValue(entriesState);
+interface Props {
+  entries: EntryDTO[];
+  onRevealPassword: (entryID: string) => Promise<string>;
+}
 
+const EntryList = ({ entries, onRevealPassword }: Props) => {
   const [query, setQuery] = React.useState('');
   const filteredEntries = useFilteredEntries(entries, query);
   const [selectedEntry, setSelectedEntry] = React.useState(null);
@@ -40,6 +41,7 @@ const EntryList = () => {
       <EntrySheet
         entry={selectedEntry}
         onClose={() => setSelectedEntry(null)}
+        onRevealPassword={onRevealPassword}
       />
     </>
   );

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Table, Text, Pane, majorScale } from 'evergreen-ui';
 
-import { EntryDTO } from '../types';
+import { EntryDTO } from '@kpweb/taxonomies';
 import { useMediaQueryBreakpoints } from '../styling';
 import EntryTags from './entryTags';
 import useEntryPath from './useEntryPath';

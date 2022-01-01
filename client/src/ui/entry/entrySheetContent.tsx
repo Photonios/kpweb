@@ -1,23 +1,22 @@
 import React from 'react';
 import { Pane, FormField, majorScale, TextareaField } from 'evergreen-ui';
 
-import { EntryDTO } from '../types';
+import { EntryDTO } from '@kpweb/taxonomies';
 import { CopyableTextInput, PasswordInput } from '../controls';
-
-import { revealEntryPassword } from '../api';
 
 interface Props {
   entry: EntryDTO;
+  onRevealPassword: (entryID: string) => Promise<string>;
 }
 
-const EntrySheetContent = ({ entry }: Props) => (
+const EntrySheetContent = ({ entry, onRevealPassword }: Props) => (
   <Pane flex="1" overflowY="scroll" background="tint1" padding={16}>
     <FormField label="Username" marginBottom={majorScale(3)}>
       <CopyableTextInput value={entry.username} readOnly={true} width="100%" />
     </FormField>
     <FormField label="Password" marginBottom={majorScale(3)}>
       <PasswordInput
-        onReveal={() => revealEntryPassword(entry.id)}
+        onReveal={() => onRevealPassword(entry.id)}
         readOnly={true}
         width="100%"
       />

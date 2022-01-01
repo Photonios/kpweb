@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "skipLibCheck": true,
+    "strict": true,
+    "baseUrl": "./src",
+    "jsx": "react",
+    "paths": {
+      "@kpweb/*": ["./*"]
+    }
+  },
+  "include": ["src"],
+  "exclude": ["node_modules" ]
+}

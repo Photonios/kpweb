@@ -1,7 +1,7 @@
 import React from 'react';
 import { Pane, Paragraph, Heading, majorScale } from 'evergreen-ui';
 
-import { EntryDTO } from '../types';
+import { EntryDTO } from '@kpweb/taxonomies';
 import EntryTags from './entryTags';
 import useEntryPath from './useEntryPath';
 

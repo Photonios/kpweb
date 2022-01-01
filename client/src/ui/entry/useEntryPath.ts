@@ -1,4 +1,4 @@
-import { EntryDTO } from '../types';
+import { EntryDTO } from '@kpweb/taxonomies';
 
 interface Options {
   includingName: boolean;
