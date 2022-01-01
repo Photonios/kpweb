@@ -11,6 +11,10 @@ type ErrorResponse struct {
 	Message string `json:"errorMessage"`
 }
 
+type ConfigResponse struct {
+	SessionActiveCookieName string `json:"sessionActiveCookieName"`
+}
+
 type PasswordResponse struct {
 	Password string `json:"password"`
 }
@@ -25,6 +29,17 @@ func writeErrorResponse(w http.ResponseWriter, message string) {
 
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(errorResponse)
+}
+
+func configHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
+		w.WriteHeader(http.StatusMethodNotAllowed)
+		return
+	}
+
+	writeJSONResponse(w, ConfigResponse{
+		SessionActiveCookieName: GetSessionActiveCookieName(),
+	})
 }
 
 func sessionHandler(w http.ResponseWriter, r *http.Request) {
