@@ -22,7 +22,13 @@ devclient: _clean_client _copy_index_html
 devserver:
 	cd server/; go run .
 
-fmt:
+check:
+	cd server/; gofmt -e -d .
+	cd client; yarn eslint .
+	cd client; yarn prettier -c .
+	cd client; yarn tsc --noEmit
+
+fix:
 	cd server/; go fmt
 	cd client/; yarn eslint . --fix
 	cd client/; yarn prettier -w .
