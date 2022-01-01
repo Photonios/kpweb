@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSetRecoilState } from 'recoil';
-import { LoginForm } from '@kpweb/ui';
+import { LoginForm } from '@kpweb/ui/session';
 import { createSession } from '@kpweb/api';
 
 import { hasSessionState } from './state';
