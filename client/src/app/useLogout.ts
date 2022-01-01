@@ -1,10 +1,16 @@
 import React from 'react';
+import { useResetRecoilState } from 'recoil';
 import { destroySession } from '@kpweb/api';
 
-const useLogout = (): (() => Promise<void>) =>
-  React.useCallback(async () => {
+import { hasSessionState } from './state';
+
+const useLogout = (): (() => Promise<void>) => {
+  const resetHasSession = useResetRecoilState(hasSessionState);
+
+  return React.useCallback(async () => {
     await destroySession();
-    window.location.reload();
+    resetHasSession();
   }, []);
+};
 
 export default useLogout;
