@@ -10,7 +10,7 @@ const useLogout = (): (() => Promise<void>) => {
   return React.useCallback(async () => {
     await destroySession();
     resetHasSession();
-  }, []);
+  }, [resetHasSession]);
 };
 
 export default useLogout;
