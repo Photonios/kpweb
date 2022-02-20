@@ -10,6 +10,7 @@ const useLogout = (): (() => Promise<void>) => {
   return React.useCallback(async () => {
     await destroySession();
     resetHasSession();
+    window.location.reload();
   }, [resetHasSession]);
 };
 
