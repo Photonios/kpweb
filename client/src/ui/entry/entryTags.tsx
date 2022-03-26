@@ -18,6 +18,7 @@ const createHashCode = (value: string): number => {
 
 const pickColor = (theme: Theme, value: string): string => {
   const hashCode = createHashCode(value);
+  // @ts-ignore
   const availableColors = Object.keys(theme.fills);
 
   return availableColors[hashCode % availableColors.length];
@@ -29,7 +30,12 @@ const EntryTags = ({ tags }: Props) => {
   return (
     <>
       {tags.map((tag) => (
-        <Badge key={tag} color={pickColor(theme, tag)} marginRight={majorScale(1)}>
+        <Badge
+          key={tag}
+          // @ts-ignore
+          color={pickColor(theme, tag)}
+          marginRight={majorScale(1)}
+        >
           {tag}
         </Badge>
       ))}
