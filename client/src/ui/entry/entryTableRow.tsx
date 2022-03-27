@@ -14,7 +14,7 @@ interface Props {
 
 const EntryTableRow = ({ entry, onClick }: Props) => {
   const breakpoints = useMediaQueryBreakpoints();
-  const entryPath = useEntryPath(entry, { includingName: true });
+  const entryPath = useEntryPath(entry.data, { includingName: true });
 
   return (
     <Table.Row isSelectable onSelect={() => onClick(entry)}>

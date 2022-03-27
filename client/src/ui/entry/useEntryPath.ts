@@ -1,13 +1,16 @@
-import { EntryDTO } from '@kpweb/taxonomies';
+import { EntryDataDTO } from '@kpweb/taxonomies';
 
 interface Options {
   includingName: boolean;
 }
 
-const useEntryPath = (entry: EntryDTO, { includingName }: Options): string => {
-  const fullPath = [...entry.data.path];
+const useEntryPath = (
+  entryData: EntryDataDTO,
+  { includingName }: Options
+): string => {
+  const fullPath = [...entryData.path];
   if (includingName) {
-    fullPath.push(entry.data.name);
+    fullPath.push(entryData.name);
   }
 
   return fullPath.join(' → ');

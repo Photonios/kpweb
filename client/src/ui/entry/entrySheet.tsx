@@ -1,6 +1,6 @@
 import React from 'react';
 import { SideSheet } from 'evergreen-ui';
-import { EntryDTO } from '@kpweb/taxonomies';
+import { EntryDataDTO } from '@kpweb/taxonomies';
 
 import { useMediaQueryBreakpoints } from '../styling';
 
@@ -8,18 +8,18 @@ import EntrySheetHeader from './entrySheetHeader';
 import EntrySheetContent from './entrySheetContent';
 
 interface Props {
-  entry: EntryDTO | null;
+  entryData: EntryDataDTO | null;
   onClose: () => void;
-  onRevealPassword: (entryID: string) => Promise<string>;
+  onRevealPassword: () => Promise<string>;
 }
 
-const EntrySheet = ({ entry, onClose, onRevealPassword }: Props) => {
+const EntrySheet = ({ entryData, onClose, onRevealPassword }: Props) => {
   const breakpoints = useMediaQueryBreakpoints();
 
   return (
     <SideSheet
       position={breakpoints.isMedium ? 'right' : 'bottom'}
-      isShown={!!entry}
+      isShown={!!entryData}
       onBeforeClose={() => {
         onClose();
         return true;
@@ -33,11 +33,11 @@ const EntrySheet = ({ entry, onClose, onRevealPassword }: Props) => {
         flexDirection: 'column',
       }}
     >
-      {entry ? (
+      {entryData ? (
         <>
-          <EntrySheetHeader entry={entry} />
+          <EntrySheetHeader entryData={entryData} />
           <EntrySheetContent
-            entry={entry}
+            entryData={entryData}
             onRevealPassword={onRevealPassword}
           />
         </>

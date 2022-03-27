@@ -1,16 +1,16 @@
 import React from 'react';
 import { Heading, Pane, Paragraph, majorScale } from 'evergreen-ui';
-import { EntryDTO } from '@kpweb/taxonomies';
+import { EntryDataDTO } from '@kpweb/taxonomies';
 
 import EntryTags from './entryTags';
 import useEntryPath from './useEntryPath';
 
 interface Props {
-  entry: EntryDTO;
+  entryData: EntryDataDTO;
 }
 
-const EntrySheetHeader = ({ entry }: Props) => {
-  const entryPath = useEntryPath(entry, { includingName: false });
+const EntrySheetHeader = ({ entryData }: Props) => {
+  const entryPath = useEntryPath(entryData, { includingName: false });
 
   return (
     <Pane
@@ -23,15 +23,15 @@ const EntrySheetHeader = ({ entry }: Props) => {
       backgroundColor="white"
     >
       <Pane padding={majorScale(2)} borderBottom="muted">
-        <Heading size={600}>{entry.data.name}</Heading>
+        <Heading size={600}>{entryData.name}</Heading>
         {!!entryPath?.length && (
           <Paragraph size={400} color="muted">
             {entryPath}
           </Paragraph>
         )}
-        {!!entry.data.tags?.length && (
+        {!!entryData.tags?.length && (
           <Pane marginTop={majorScale(1) / 2}>
-            <EntryTags tags={entry.data.tags} />
+            <EntryTags tags={entryData.tags} />
           </Pane>
         )}
       </Pane>

@@ -31,9 +31,11 @@ const EntriesScreen = () => {
       </HeaderContainer>
       <EntryTable entries={filteredEntries} onEntryClick={setSelectedEntry} />
       <EntrySheet
-        entry={selectedEntry}
+        entryData={selectedEntry?.data || null}
         onClose={() => setSelectedEntry(null)}
-        onRevealPassword={revealPassword}
+        onRevealPassword={() =>
+          selectedEntry ? revealPassword(selectedEntry.id) : Promise.resolve('')
+        }
       />
     </>
   );
