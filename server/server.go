@@ -24,6 +24,7 @@ func createRouter() *mux.Router {
 	router.Handle("/api/config", http.HandlerFunc(configHandler))
 	router.Handle("/api/session", http.HandlerFunc(sessionHandler))
 	router.Handle("/api/entries", http.HandlerFunc(entriesHandler))
+	router.Handle("/api/entries/{entryID}", http.HandlerFunc(entryHandler))
 	router.Handle("/api/entries/{entryID}/password", http.HandlerFunc(passwordHandler))
 
 	return router

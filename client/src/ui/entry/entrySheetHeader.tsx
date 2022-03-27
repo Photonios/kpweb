@@ -23,15 +23,15 @@ const EntrySheetHeader = ({ entry }: Props) => {
       backgroundColor="white"
     >
       <Pane padding={majorScale(2)} borderBottom="muted">
-        <Heading size={600}>{entry.name}</Heading>
+        <Heading size={600}>{entry.data.name}</Heading>
         {!!entryPath?.length && (
           <Paragraph size={400} color="muted">
             {entryPath}
           </Paragraph>
         )}
-        {!!entry.tags?.length && (
+        {!!entry.data.tags?.length && (
           <Pane marginTop={majorScale(1) / 2}>
-            <EntryTags tags={entry.tags} />
+            <EntryTags tags={entry.data.tags} />
           </Pane>
         )}
       </Pane>

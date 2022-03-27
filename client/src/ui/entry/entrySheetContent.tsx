@@ -12,7 +12,11 @@ interface Props {
 const EntrySheetContent = ({ entry, onRevealPassword }: Props) => (
   <Pane flex="1" overflowY="scroll" background="tint1" padding={16}>
     <FormField label="Username" marginBottom={majorScale(3)}>
-      <CopyableTextInput value={entry.username} readOnly={true} width="100%" />
+      <CopyableTextInput
+        value={entry.data.username}
+        readOnly={true}
+        width="100%"
+      />
     </FormField>
     <FormField label="Password" marginBottom={majorScale(3)}>
       <PasswordInput
@@ -22,9 +26,9 @@ const EntrySheetContent = ({ entry, onRevealPassword }: Props) => (
       />
     </FormField>
     <FormField label="URL" marginBottom={majorScale(3)}>
-      <CopyableTextInput value={entry.url} readOnly={true} width="100%" />
+      <CopyableTextInput value={entry.data.url} readOnly={true} width="100%" />
     </FormField>
-    <TextareaField label="Notes" value={entry.notes} readOnly />
+    <TextareaField label="Notes" value={entry.data.notes} readOnly />
   </Pane>
 );
 

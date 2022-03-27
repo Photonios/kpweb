@@ -12,10 +12,10 @@ const tokenize = (text: string): string[] =>
     .split(' ');
 
 const tokenizeEntry = (entry: EntryDTO): string[] => [
-  ...entry.path.flatMap(tokenize),
-  ...entry.tags.flatMap(tokenize),
-  ...tokenize(entry.name),
-  ...tokenize(entry.username),
+  ...entry.data.path.flatMap(tokenize),
+  ...entry.data.tags.flatMap(tokenize),
+  ...tokenize(entry.data.name),
+  ...tokenize(entry.data.username),
 ];
 
 const tokenizeEntries = (entries: EntryDTO[]): TokenizedEntries =>

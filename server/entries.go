@@ -6,20 +6,89 @@ import (
 	"strings"
 )
 
-type Entry struct {
-	ID       string   `json:"id"`
+type EntryData struct {
 	Name     string   `json:"name"`
 	UserName string   `json:"username"`
 	URL      string   `json:"url"`
 	Notes    string   `json:"notes"`
 	Path     []string `json:"path"`
 	Tags     []string `json:"tags"`
+}
 
-	keePassEntry gokeepasslib.Entry
+type Entry struct {
+	ID   string    `json:"id"`
+	Data EntryData `json:"data"`
+
+	dbEntry gokeepasslib.Entry
 }
 
 func (entry *Entry) GetPassword() string {
-	return entry.keePassEntry.GetPassword()
+	return entry.dbEntry.GetPassword()
+}
+
+func (entry *Entry) UpdateData(data EntryData) error {
+	if err := entry.SetField("Title", data.Name); err != nil {
+		return err
+	}
+
+	if err := entry.SetField("UserName", data.UserName); err != nil {
+		return err
+	}
+
+	if err := entry.SetField("URL", data.URL); err != nil {
+		return err
+	}
+
+	if err := entry.SetField("Notes", data.Notes); err != nil {
+		return err
+	}
+
+	entry.dbEntry.Tags = strings.Join(data.Tags, ";")
+
+	entry.Data = data
+	return nil
+}
+
+func (entry *Entry) SetField(name string, value string) error {
+	fieldIndex := entry.dbEntry.GetIndex(name)
+	if fieldIndex < 0 {
+		return nil
+	}
+
+	entry.dbEntry.Values[fieldIndex].Value.Content = value
+	return nil
+}
+
+func NewEntryFromDatabase(dbEntry gokeepasslib.Entry, path []string) Entry {
+	rawUUID := [16]byte(dbEntry.UUID)
+	id, _ := uuid.FromBytes(rawUUID[:])
+
+	tags := make([]string, 0)
+	if dbEntry.Tags != "" {
+		tags = strings.Split(dbEntry.Tags, ";")
+	}
+
+	entryPath := path[:]
+	if GetHideGroupNames() {
+		entryPath = make([]string, 0)
+	} else if GetHideRootGroupName() {
+		entryPath = path[1:]
+	}
+
+	entry := Entry{
+		ID: id.String(),
+		Data: EntryData{
+			Name:     dbEntry.GetTitle(),
+			UserName: dbEntry.GetContent("UserName"),
+			URL:      dbEntry.GetContent("URL"),
+			Notes:    dbEntry.GetContent("Notes"),
+			Path:     entryPath,
+			Tags:     tags,
+		},
+		dbEntry: dbEntry,
+	}
+
+	return entry
 }
 
 func ListEntriesFromDatabase(database *gokeepasslib.Database) []Entry {
@@ -37,32 +106,8 @@ func ListEntriesFromDatabase(database *gokeepasslib.Database) []Entry {
 func ListEntriesFromGroup(group gokeepasslib.Group, path []string) []Entry {
 	entries := make([]Entry, len(group.Entries))
 
-	for i, entry := range group.Entries {
-		rawUUID := [16]byte(entry.UUID)
-		id, _ := uuid.FromBytes(rawUUID[:])
-
-		tags := make([]string, 0)
-		if entry.Tags != "" {
-			tags = strings.Split(entry.Tags, ";")
-		}
-
-		entryPath := path[:]
-		if GetHideGroupNames() {
-			entryPath = make([]string, 0)
-		} else if GetHideRootGroupName() {
-			entryPath = path[1:]
-		}
-
-		entries[i] = Entry{
-			ID:           id.String(),
-			Name:         entry.GetTitle(),
-			UserName:     entry.GetContent("UserName"),
-			URL:          entry.GetContent("URL"),
-			Notes:        entry.GetContent("Notes"),
-			Path:         entryPath,
-			Tags:         tags,
-			keePassEntry: entry,
-		}
+	for i, kpEntry := range group.Entries {
+		entries[i] = NewEntryFromDatabase(kpEntry, path)
 	}
 
 	for _, childGroup := range group.Groups {

@@ -1,3 +1,3 @@
 export { Config } from './config';
-export { EntryDTO } from './entry';
+export { EntryDTO, EntryDataDTO } from './entry';
 export { Credentials } from './session';

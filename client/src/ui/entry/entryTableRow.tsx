@@ -33,14 +33,14 @@ const EntryTableRow = ({ entry, onClick }: Props) => {
           {entryPath}
         </Text>
         <Pane marginTop={majorScale(1) / 2}>
-          <EntryTags tags={entry.tags} />
+          <EntryTags tags={entry.data.tags} />
         </Pane>
       </Table.Cell>
       {breakpoints.isMedium && (
-        <Table.TextCell>{entry.username || '-'}</Table.TextCell>
+        <Table.TextCell>{entry.data.username || '-'}</Table.TextCell>
       )}
       {breakpoints.isLarge && (
-        <Table.TextCell>{entry.url || '-'}</Table.TextCell>
+        <Table.TextCell>{entry.data.url || '-'}</Table.TextCell>
       )}
     </Table.Row>
   );

@@ -5,9 +5,9 @@ interface Options {
 }
 
 const useEntryPath = (entry: EntryDTO, { includingName }: Options): string => {
-  const fullPath = [...entry.path];
+  const fullPath = [...entry.data.path];
   if (includingName) {
-    fullPath.push(entry.name);
+    fullPath.push(entry.data.name);
   }
 
   return fullPath.join(' → ');
